@@ -35,5 +35,8 @@
         "description": "Stuknij przycisk „Wyślij” (zazwyczaj ikonka samolotu)."
       }
     ]
-  }
+  },
+  "detailed-step": 
+       "Aby otworzyć WhatsApp, znajdź ikonę aplikacji na ekranie swojego telefonu – jest to zielona ikona z białym dymkiem czatu. Stuknij w ikonę WhatsApp, aby ją otworzyć. Jeśli to Twoje pierwsze użycie, aplikacja poprosi o wpisanie numeru telefonu – wprowadź swój numer i kliknij Dalej. Następnie otrzymasz kod w wiadomości SMS – wpisz go w odpowiednie pole, aby potwierdzić swój numer. Po tych krokach będziesz mógł zacząć korzystać z WhatsApp, rozmawiając z innymi lub wysyłając wiadomości."
+
 }
