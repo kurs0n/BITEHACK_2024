@@ -14,6 +14,7 @@ type StepsRequest struct {
 type StepResponse struct {
 	Index       int32  `json:"index"`
 	Description string `json:"description"`
+	Icon        string `json:"icon,omitempty"`
 }
 
 type StepsResponse struct {

@@ -16,16 +16,14 @@ import (
 func generateSteps(recievedTask string, tag string) StepsResponse {
 	ctx := context.Background()
 
-	icons, err := db.GetIconsByTag(tag) 
+	icons, err := db.GetIconsByTag(tag)
 
 	if err != nil {
-		log.Println(err);
+		log.Println(err)
 		panic(err)
 	}
 
 	iconsText := parseIconsToText(icons)
-
-	log.Println(iconsText)
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
@@ -46,14 +44,21 @@ func generateSteps(recievedTask string, tag string) StepsResponse {
 [
   {
     "index": 1,
-    "description": "Step description here"
+    "description": "Step description here",
+    "icon": "Icon URL here (if applicable)"
   },
   {
     "index": 2,
-    "description": "Step description here"
+    "description": "Step description here",
+    "icon": "Icon URL here (if applicable)"
   }
 ]
-Respond with only the JSON output, nothing else.`, recievedTask)
+For each step, match the most relevant icon from the provided list of icons based on the description. Use the "Description" field from the icon list to decide the match. If a step does not have a relevant icon, do not include the "icon" field for that step. Here is the list of icons with their descriptions:
+
+%s
+
+Respond with only the JSON output, nothing else.`, recievedTask, iconsText)
+
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
 	if err != nil {
@@ -64,16 +69,16 @@ Respond with only the JSON output, nothing else.`, recievedTask)
 }
 
 func parseIconsToText(icons []db.Icon) string {
-    var text string
-    text += "["
-    for i, icon := range icons {
-        text += fmt.Sprintf(`{IconPath: "%s", Description: "%s"}`, icon.IconPath, icon.Description)
-        if i < len(icons)-1 {
-            text += ", "
-        }
-    }
-    text += "]"
-    return text
+	var text string
+	text += "["
+	for i, icon := range icons {
+		text += fmt.Sprintf(`{IconPath: "%s", Description: "%s"}`, icon.IconPath, icon.Description)
+		if i < len(icons)-1 {
+			text += ", "
+		}
+	}
+	text += "]"
+	return text
 }
 
 func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
