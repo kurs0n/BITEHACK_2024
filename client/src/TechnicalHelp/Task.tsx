@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useInstructions } from "./Context"; // Import the useInstructions hook
 
 type TaskProps = {
   index: number;
@@ -7,6 +8,7 @@ type TaskProps = {
 };
 
 const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
+  const { instructions } = useInstructions(); // Access the instructions from the context
   const [detailedStep, setDetailedStep] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false); // Track if the task is expanded
 
@@ -14,10 +16,13 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
     if (detailedStep === null) {
       // Only fetch if detailedStep is not already set
       try {
-        // Create the request body
+        // Create the request body with the entire instruction list and the prompt
         const body = JSON.stringify({
-          prompt: description,
+          "instruction-list": instructions, // Send all instructions
+          prompt: description, // The prompt stays the same (task description)
         });
+
+        console.log(body);
 
         const response = await fetch("http://localhost:3000/detailed-step", {
           method: "POST",
