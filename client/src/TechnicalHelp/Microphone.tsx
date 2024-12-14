@@ -36,6 +36,7 @@ const Microphone: React.FC<MicrophoneProps> = ({ language, onTranscriptChange })
     SpeechRecognition.stopListening();
   };
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (listening) {
       onTranscriptChange(transcript);

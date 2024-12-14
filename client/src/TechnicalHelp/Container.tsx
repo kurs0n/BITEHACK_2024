@@ -8,12 +8,12 @@ const Container: React.FC = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsTyping(false), 1500); // Matches the animation duration
-    return () => clearTimeout(timer); // Cleanup timer on unmount
+    const timer = setTimeout(() => setIsTyping(false), 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="bg-main p-20 border-8 border-stone-800 rounded-3xl w-2/3">
+    <div className="bg-trans p-20 border-8 border-stone-800 rounded-3xl w-2/3 backdrop-blur-lg">
       <h1
         className={`text-4xl text-center mx-auto overflow-hidden whitespace-nowrap mb-12 ${
           isTyping ? "animate-typing border-r-4 border-black" : ""
@@ -22,11 +22,9 @@ const Container: React.FC = () => {
       >
         Witaj, w czym mogę ci dzisiaj pomóc?
       </h1>
-
       <div className="flex justify-between items-center p-4 rounded-lg">
         <InputBar />
       </div>
-
       <div className="bg-main p-6 rounded-3xl space-y-4">
         <InstructionList instructions={instructions} />
       </div>
