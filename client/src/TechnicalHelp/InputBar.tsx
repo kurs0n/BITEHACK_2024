@@ -20,39 +20,40 @@ const InputBar: React.FC = () => {
       prompt: query,
     };
 
-    // Send a POST request with the payload
     try {
       const response = await fetch("http://localhost:3000/steps", {
-        // method: "POST",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify(payload), // Pass the payload as a JSON string
       });
 
       const data = await response.json();
       console.log(data);
-      // Assuming the response contains the "steps" data
       fetchInstructions(data.steps);
 
-      setQuery(""); // Clear the input after submitting
+      setQuery("");
     } catch (error) {
       console.error("Error fetching instructions:", error);
     }
   };
 
   return (
-    <form className="flex items-center mb-4" onSubmit={handleSubmit}>
+    <form className="flex items-center w-full mb-4 rounded-full border-stone-800 border-4" onSubmit={handleSubmit}>
+      <div className="p-2 text-gray-700">
+        <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
+      </div>
+
       <input
         type="text"
         value={query}
         onChange={handleChange}
-        className="rounded-l-lg p-2 w-60"
+        className="p-2 w-full focus:outline-none text-stone-800 placeholder-stone-500 bg-main"
         placeholder="Tutaj możesz wpisać swoje pytanie"
       />
-      <button type="submit" className="bg-[#B5673E] text-white px-4 py-2 rounded-r-lg">
-        ➤
+
+      <button type="submit" className="p-2 border-l-4 border-stone-800 bg-stone rounded-r-3xl bg-lime-200 ">
+        <i className="fa-solid fa-xl fa-arrow-right text-stone-800"></i>
       </button>
     </form>
   );
