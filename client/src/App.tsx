@@ -1,24 +1,33 @@
 import "regenerator-runtime/runtime";
-import { InstructionProvider } from "./TechnicalHelp/Context";
-import Container from "./TechnicalHelp/Container";
-import background from "../public/background.png"; // Import the image
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TitlePage from "./components/TitlePage";
+import Senior from "./components/Senior";
+import Volunteer from "./components/Volunteer";
+import TechHelp from "./TechHelp/Main";
+import VolunteerHelpContainer from "./VolunteerHelp/Container";
+import { InstructionProvider } from "./TechHelp/Context";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div
-      className="h-screen w-full flex justify-center items-center bg-stone-300"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <InstructionProvider>
-        <Container />
-      </InstructionProvider>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<TitlePage />} />
+        <Route path="/senior" element={<Senior />} />
+        <Route path="/volunteer" element={<Volunteer />} />
+        <Route
+          path="/tech-help"
+          element={
+            <InstructionProvider>
+              <TechHelp />
+            </InstructionProvider>
+          }
+        />
+
+        <Route path="/volunteer-help" element={<VolunteerHelpContainer />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
