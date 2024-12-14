@@ -11,17 +11,23 @@ interface InstructionListProps {
 
 const InstructionList: React.FC<InstructionListProps> = ({ instructions }) => {
   return (
-    <div className="h-72 overflow-y-auto p-4 rounded-lg bg-main">
-      <ol className="list-decimal pl-5 ">
-        {instructions.map((instruction) => (
-          <Task
-            key={instruction.index}
-            index={instruction.index}
-            description={instruction.description}
-            icon={instruction.icon} // Pass the icon URL here
-          />
-        ))}
-      </ol>
+    <div className="h-72 overflow-y-auto p-4 rounded-xl w-full ">
+      {instructions.length === 0 ? (
+        <div className="flex justify-center items-center h-full text-stone-400 text-lg">
+          Tutaj pojawią się kroki, które musisz wykonać
+        </div>
+      ) : (
+        <ol>
+          {instructions.map((instruction) => (
+            <Task
+              key={instruction.index}
+              index={instruction.index}
+              description={instruction.description}
+              icon={instruction.icon} // Pass the icon URL here
+            />
+          ))}
+        </ol>
+      )}
     </div>
   );
 };
