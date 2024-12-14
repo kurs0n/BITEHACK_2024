@@ -144,9 +144,16 @@ func detailedStepGenerator(step string, instructions []Instruction) string {
 		}
 	}(client)
 
+	allSteps := parseInstructionsToText(instructions)
+
 	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. 
+Below is a series of steps for a specific task. Use this context to provide a detailed and precise explanation for the highlighted step.
+
+Steps for the task:
+%s
+
 Provide a detailed and precise explanation for the following step: "%s". 
-Respond in the same language as the step, and provide only the explanation, nothing else.`, step)
+Respond in the same language as the step, and provide only the explanation, nothing else.`, allSteps, step)
 
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
