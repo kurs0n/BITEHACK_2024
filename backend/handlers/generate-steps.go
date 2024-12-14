@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/option"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/option"
 )
 
 func generateSteps(recievedTask string) StepsResponse {
