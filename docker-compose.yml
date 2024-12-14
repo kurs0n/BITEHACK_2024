@@ -29,7 +29,7 @@ services:
       - backend
   backend:
     build:
-      context: ./backend
+      context: ./backend/broker
       dockerfile: ./Dockerfile.backend
     ports:
       - "3000:3000"
