@@ -3,12 +3,15 @@ import { useInstructions } from "./Context";
 import Microphone from "./Microphone";
 
 interface InputBarProps {
-  setIsLoading: (loading: boolean) => void; // Funkcja do ustawiania stanu isLoading
+  setIsLoading: (loading: boolean) => void; // Function to set the isLoading state
 }
 
 const InputBar: React.FC<InputBarProps> = ({ setIsLoading }) => {
   const [query, setQuery] = useState("");
   const { fetchInstructions } = useInstructions();
+
+  // Check if the browser is Chrome
+  const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -64,8 +67,8 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading }) => {
         className="p-2 w-full focus:outline-none text-stone-800 placeholder-stone-500 bg-main bg-1"
         placeholder="Tutaj możesz wpisać swoje pytanie"
       />
-      <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange} />
-      <button type="submit" className="p-2 border-l-4 border-stone-800 bg-stone rounded-r-3xl bg-lime-200 ">
+      {isChrome && <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange} />}
+      <button type="submit" className="p-2 border-l-4 border-stone-800 bg-stone rounded-r-3xl bg-lime-200">
         <i className="fa-solid fa-xl fa-arrow-right text-stone-800"></i>
       </button>
     </form>

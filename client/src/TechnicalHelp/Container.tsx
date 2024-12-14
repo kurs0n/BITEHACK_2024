@@ -21,26 +21,26 @@ const Container: React.FC = () => {
         }`}
         style={{ width: "fit-content", fontWeight: 800 }}
       >
-        "Witaj, w czym mogę ci dzisiaj pomóc?"
+        Witaj, w czym mogę ci dzisiaj pomóc?
       </h1>
       <div className="flex justify-between items-center p-4 rounded-lg">
         <InputBar setIsLoading={setIsLoading} />
       </div>
       <div className="bg-main p-6 rounded-3xl space-y-4">
-          <div className="flex justify-center items-center space-x-2">
-            {isLoading ? (
-              <div className="h-96 overflow-y-auto p-4 rounded-xl w-full ">
-               <div className="flex justify-center items-center h-full text-stone-400 text-lg">
-               <div
+        <div className="flex justify-center items-center space-x-2">
+          {isLoading ? (
+            <div className="h-96 overflow-y-auto p-4 rounded-xl w-full ">
+              <div className="flex justify-center items-center h-full text-stone-400 text-lg">
+                <div
                   className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                  role="status">
-                </div>
-                </div>
+                  role="status"
+                ></div>
               </div>
-            ): (
-              <InstructionList instructions={instructions} />
-            )}
-          </div>
+            </div>
+          ) : (
+            <InstructionList instructions={instructions} />
+          )}
+        </div>
       </div>
     </div>
   );
