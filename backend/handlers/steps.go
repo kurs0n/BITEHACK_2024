@@ -14,6 +14,7 @@ type StepsRequest struct {
 type StepResponse struct {
 	Index       int32  `json:"index"`
 	Description string `json:"description"`
+	Icon        string `json:"icon,omitempty"`
 }
 
 type StepsResponse struct {
@@ -27,7 +28,9 @@ func StepsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	generatedResp := generateSteps(req.Prompt)
+	tag := matchTag(req.Prompt)
+
+	generatedResp := generateSteps(req.Prompt, tag)
 
 	respondWithJSON(w, http.StatusOK, generatedResp)
 

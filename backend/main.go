@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"backend/db"
 	"backend/handlers"
 
 	"github.com/go-chi/chi/v5"
@@ -14,6 +15,8 @@ import (
 )
 
 func main() {
+
+    db.Init()
     // Load environment variables from .env file
     if err := godotenv.Load(); err != nil {
         log.Fatal("Error loading .env file")

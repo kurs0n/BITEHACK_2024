@@ -1,18 +1,29 @@
 package handlers
 
 import (
+	"backend/db"
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/option"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/option"
 )
 
-func generateSteps(recievedTask string) StepsResponse {
+func generateSteps(recievedTask string, tag string) StepsResponse {
 	ctx := context.Background()
+
+	icons, err := db.GetIconsByTag(tag)
+
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	iconsText := parseIconsToText(icons)
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
@@ -29,18 +40,25 @@ func generateSteps(recievedTask string) StepsResponse {
 			log.Fatalf("Error closing Generative AI client: %v", err)
 		}
 	}(client)
-	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. Provide a step-by-step guide in response to the following task: "%s". Each step must be in a numbered JSON format as shown below:
+	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. Provide a step-by-step guide in response to the following task: "%s" . Each step must be in a numbered JSON format as shown below:
 [
   {
     "index": 1,
-    "description": "Step description here"
+    "description": "Step description here",
+    "icon": "Icon URL here (if applicable)"
   },
   {
     "index": 2,
-    "description": "Step description here"
+    "description": "Step description here",
+    "icon": "Icon URL here (if applicable)"
   }
 ]
-Respond with only the JSON output, nothing else.`, recievedTask)
+For each step, match the most relevant icon from the provided list of icons based on the description. Use the "Description" field from the icon list to decide the match. If a step does not have a relevant icon, do not include the "icon" field for that step. Here is the list of icons with their descriptions:
+
+%s
+
+Respond with only the JSON output, in the same language as the task, nothing else.`, recievedTask, iconsText)
+
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
 	if err != nil {
@@ -48,6 +66,19 @@ Respond with only the JSON output, nothing else.`, recievedTask)
 	}
 
 	return parseStepsResponse(resp)
+}
+
+func parseIconsToText(icons []db.Icon) string {
+	var text string
+	text += "["
+	for i, icon := range icons {
+		text += fmt.Sprintf(`{IconPath: "%s", Description: "%s"}`, icon.IconPath, icon.Description)
+		if i < len(icons)-1 {
+			text += ", "
+		}
+	}
+	text += "]"
+	return text
 }
 
 func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
