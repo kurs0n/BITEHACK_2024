@@ -1,0 +1,7 @@
+ikonki:
+
+przydzielamy tag przez llm 
+
+select * from ikonki where tag = <to co llm zwróci z tagiem>
+
+output z sqla dajemy do prompta i  wypluwamy na podstawie description ikonki które pasują description do danego stepa 
