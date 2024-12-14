@@ -16,8 +16,11 @@ COPY . .
 # Build the application
 RUN npm run build
 
+# Install serve to serve the dist directory
+RUN npm install -g serve
+
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["serve", "-s", "dist"]
