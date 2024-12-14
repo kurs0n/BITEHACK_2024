@@ -14,6 +14,10 @@
   background-color: #f5ebe0;
 }
 
+.bg-2 {
+  background-color: #d8cdbf7a;
+}
+
 @keyframes gradientBackground {
   0% {
     background-color: #e1d0bb;
@@ -24,4 +28,26 @@
   100% {
     background-color: #e1d0bb;
   }
+}
+
+/* Add this CSS to your global styles or as a separate class */
+li {
+  overflow: hidden; /* Prevents content from overflowing during animation */
+  transition: all 0.5s ease-in-out; /* Smooth transition for width and height */
+}
+
+li.collapsed {
+  height: 0;
+  width: auto; /* Will shrink */
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0; /* Make it invisible when collapsed */
+}
+
+li.expand {
+  height: auto;
+  width: 100%; /* Expands horizontally */
+  padding-top: 10px; /* Space for content */
+  padding-bottom: 10px;
+  opacity: 1; /* Make it visible */
 }

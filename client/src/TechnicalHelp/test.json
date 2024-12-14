@@ -1,0 +1,36 @@
+{
+  "instructionList": [
+    {
+      "index": 1,
+      "description": "Otwórz aplikację WhatsApp.",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-chats.jpeg"
+    },
+    {
+      "index": 2,
+      "description": "Znajdź rozmowę z Twoim wnukiem na liście czatów.",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-chat-user.jpeg"
+    },
+    {
+      "index": 3,
+      "description": "Stuknij w pole tekstowe, aby otworzyć klawiaturę.",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-keyboard.jpeg"
+    },
+    {
+      "index": 4,
+      "description": "Znajdź ikonę załącznika (zazwyczaj jest to spinacz do papieru lub symbol klipa).",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-add-attachment.jpeg"
+    },
+    {
+      "index": 5,
+      "description": "Wybierz \"Zdjęcie\" lub \"Galeria\".",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-addphoto.jpeg"
+    },
+    { "index": 6, "description": "Wybierz zdjęcie, które chcesz wysłać." },
+    {
+      "index": 7,
+      "description": "Stuknij w przycisk \"Wyślij\" (zazwyczaj jest to symbol strzałki lub samolotu).",
+      "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-send.jpeg"
+    }
+  ],
+  "prompt": "Stuknij w przycisk \"Wyślij\" (zazwyczaj jest to symbol strzałki lub samolotu)."
+}
