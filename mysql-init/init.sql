@@ -98,4 +98,7 @@ VALUES
      'whatsapp'),
     ('https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-video.jpeg',
      'Tap this icon to send a video or make a video call.',
+     'whatsapp'),
+    ('https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-send.jpeg',
+     'This icon lets you send your message, photo, or video instantly. Tap it when you are ready to share.',
      'whatsapp');
