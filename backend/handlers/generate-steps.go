@@ -111,3 +111,46 @@ func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
 		Steps: []StepResponse{},
 	}
 }
+
+func detailedStepGenerator(step string) string {
+	ctx := context.Background()
+
+	apiKey := os.Getenv("GEMINI_API_KEY")
+	if apiKey == "" {
+		log.Fatal("API key not set. Please set the GEMINI_API_KEY environment variable.")
+	}
+
+	client, err := genai.NewClient(ctx, option.WithAPIKey(apiKey))
+	if err != nil {
+		log.Fatalf("Error creating Generative AI client: %v", err)
+	}
+	defer func(client *genai.Client) {
+		err = client.Close()
+		if err != nil {
+			log.Fatalf("Error closing Generative AI client: %v", err)
+		}
+	}(client)
+
+	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. 
+Provide a detailed and precise explanation for the following step: "%s". 
+Respond in the same language as the step, and provide only the explanation, nothing else.`, step)
+
+	model := client.GenerativeModel("gemini-1.5-flash")
+	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var detailedExplanation string
+	for _, candidate := range resp.Candidates {
+		if candidate.Content != nil {
+			for _, part := range candidate.Content.Parts {
+				log.Printf("Part: %+v", part)
+
+				detailedExplanation += fmt.Sprintf("%v", part)
+			}
+		}
+	}
+
+	return detailedExplanation
+}
