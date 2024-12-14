@@ -13,6 +13,17 @@ CREATE TABLE IF NOT EXISTS tags (
     name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS volunteers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telephone_number VARCHAR(20) NOT NULL,
+    photo VARCHAR(255),
+    tags JSON NOT NULL,
+    voivodeship VARCHAR(255) NOT NULL
+);
+
 -- Insert tags
 INSERT INTO tags (name) VALUES ('whatsapp');
 INSERT INTO tags (name) VALUES ('ios_system');
