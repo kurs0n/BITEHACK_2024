@@ -12,8 +12,8 @@ const InputBar: React.FC = () => {
   };
 
   const handleTranscriptChange = (transcript: string) => {
-    // updates query from audio transcript 
-    console.log("transkrypcja: " + transcript)
+    // updates query from audio transcript
+    console.log("transkrypcja: " + transcript);
     setQuery(transcript);
   };
 
@@ -24,16 +24,17 @@ const InputBar: React.FC = () => {
       return;
     }
 
-    // const payload = {
-    //   prompt: query,
-    // };
+    const payload = {
+      prompt: query,
+    };
 
     try {
       const response = await fetch("http://localhost:3000/steps", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -64,9 +65,8 @@ const InputBar: React.FC = () => {
         className="p-2 w-full focus:outline-none text-stone-800 placeholder-stone-500 bg-main bg-1"
         placeholder="Tutaj możesz wpisać swoje pytanie"
       />
-      <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange}/>
+      <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange} />
       <button type="submit" className="p-2 border-l-4 border-stone-800 bg-stone rounded-r-3xl bg-lime-200 ">
-
         <i className="fa-solid fa-xl fa-arrow-right text-stone-800"></i>
       </button>
     </form>

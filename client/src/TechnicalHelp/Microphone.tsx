@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import React, { useState, useEffect } from "react";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 interface MicrophoneProps {
   language: string;
@@ -8,7 +8,6 @@ interface MicrophoneProps {
 
 const Microphone: React.FC<MicrophoneProps> = ({ language, onTranscriptChange }) => {
   const [isMicOn, setIsMicOn] = useState(false);
-  const [displayedTranscript, setDisplayedTranscript] = useState('');
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   if (!browserSupportsSpeechRecognition) {
@@ -25,9 +24,8 @@ const Microphone: React.FC<MicrophoneProps> = ({ language, onTranscriptChange })
   };
 
   const startRecording = () => {
-    setDisplayedTranscript('');
     resetTranscript();
-    onTranscriptChange('');
+    onTranscriptChange("");
     SpeechRecognition.startListening({
       continuous: true,
       language: language,
@@ -40,13 +38,12 @@ const Microphone: React.FC<MicrophoneProps> = ({ language, onTranscriptChange })
 
   useEffect(() => {
     if (listening) {
-      setDisplayedTranscript(transcript);
       onTranscriptChange(transcript);
     }
   }, [transcript, listening, onTranscriptChange]);
 
   return (
-    <button type="button" className="p-2" onClick={onClick}>
+    <button type="button" className="p-2 bg-1" onClick={onClick}>
       <i className={isMicOn ? "fa-solid fa-xl fa-microphone" : "fa-solid fa-xl fa-microphone-slash"}></i>
     </button>
   );
