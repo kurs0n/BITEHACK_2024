@@ -1,29 +1,25 @@
-import React from 'react';
+// Container.tsx
+import React from "react";
+import InstructionList from "./InstructionList";
+import InputBar from "./InputBar";
+import { useInstructions } from "./Context";
 
-// Komponent funkcyjny bez propsów
 const Container: React.FC = () => {
-  return (
-    <div>
-    <div>
-      <h1>Witaj, w czym mogę ci dzisiaj pomóc?</h1>
+  const { instructions } = useInstructions();
 
-      <div>
-        <span>Jak zmienić czcionkę na większą?</span>
-        <span>➤</span>
+  return (
+    <div className="bg-slate-300 p-8 max-w-4xl mx-auto rounded-2xl shadow-lg">
+      <h1 className="text-4xl font-bold text-center text-[rgb(62,44,28)]">Witaj, w czym mogę ci dzisiaj pomóc?</h1>
+
+      <div className="flex justify-between items-center bg-[#ffffff] p-4 rounded-lg shadow-md border border-[#d4b59c]">
+        <InputBar />
       </div>
 
-      <ol>
-        <li>Kliknij w ikonę ustawień</li>
-        <li>Wpisz w pasku wyszukiwania "czcionka"</li>
-        <li>Kliknij w pierwszą opcję od góry</li>
-        <li>Kliknij w opcje "Czcionka i Rozmiar"</li>
-        <li>Dostosuj suwakiem preferowany rozmiar</li>
-      </ol>
+      <div className="bg-[#ffffff] p-6 rounded-lg shadow-md border border-[#d4b59c] space-y-4">
+        <InstructionList instructions={instructions} />
+      </div>
     </div>
-  </div>
   );
 };
 
-// Eksport komponentu
 export default Container;
-
