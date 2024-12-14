@@ -8,6 +8,7 @@ import (
 	"google.golang.org/api/option"
 	"log"
 	"os"
+	"strings"
 )
 
 func generateSteps(recievedTask string) StepsResponse {
@@ -46,45 +47,36 @@ Respond with only the JSON output, nothing else.`, recievedTask)
 		log.Fatal(err)
 	}
 
-	printResponse(resp)
-
-	return parseResponse(resp)
+	return parseStepsResponse(resp)
 }
 
-func printResponse(resp *genai.GenerateContentResponse) {
+func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
+	var stepsResponse StepsResponse
+
 	for _, cand := range resp.Candidates {
 		if cand.Content != nil {
 			for _, part := range cand.Content.Parts {
-				fmt.Println(part)
+				contentStr := fmt.Sprintf("%v", part)
+
+				contentStr = strings.Trim(contentStr, " \n\r`")
+				contentStr = strings.TrimSpace(contentStr)
+				if strings.HasPrefix(contentStr, "json") {
+					contentStr = strings.TrimPrefix(contentStr, "json")
+				}
+				contentStr = strings.TrimSpace(contentStr)
+
+				err := json.Unmarshal([]byte(contentStr), &stepsResponse.Steps)
+				if err != nil {
+					log.Printf("Error parsing JSON: %v\nContent: %v", err, contentStr)
+					continue
+				} else {
+					return stepsResponse
+				}
 			}
 		}
 	}
-	fmt.Println("---")
-}
 
-func parseResponse(resp *genai.GenerateContentResponse) StepsResponse {
-	var stepsResponse StepsResponse
-
-	generatedContent := extractGeneratedContent(resp)
-
-	err := json.Unmarshal([]byte(generatedContent), &stepsResponse.Steps)
-	if err != nil {
-		log.Fatalf("Error parsing Gemini response: %v", err)
+	return StepsResponse{
+		Steps: []StepResponse{},
 	}
-
-	return stepsResponse
-}
-
-func extractGeneratedContent(resp *genai.GenerateContentResponse) string {
-	var result string
-	for _, cand := range resp.Candidates {
-		if cand.Content != nil {
-			partsBytes, err := json.Marshal(cand.Content.Parts)
-			if err != nil {
-				log.Fatalf("Error marshalling content parts: %v", err)
-			}
-			result += string(partsBytes)
-		}
-	}
-	return result
 }
