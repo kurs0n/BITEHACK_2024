@@ -23,15 +23,16 @@ const InputBar: React.FC = () => {
     // Send a POST request with the payload
     try {
       const response = await fetch("http://localhost:3000/steps", {
-        method: "POST",
+        // method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload), // Pass the payload as a JSON string
+        // body: JSON.stringify(payload), // Pass the payload as a JSON string
       });
 
       const data = await response.json();
-
+      console.log(data);
       // Assuming the response contains the "steps" data
       fetchInstructions(data.steps);
 

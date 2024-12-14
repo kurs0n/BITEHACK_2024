@@ -7,7 +7,7 @@ interface InstructionListProps {
 
 const InstructionList: React.FC<InstructionListProps> = ({ instructions }) => {
   return (
-    <ol className="list-decimal pl-5 mt-4">
+    <ol className="pl-5 mt-4">
       {instructions.map((instruction) => (
         <li key={instruction.index}>
           {instruction.index}. {instruction.description}
