@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"backend/db"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -12,8 +13,19 @@ import (
 	"google.golang.org/api/option"
 )
 
-func generateSteps(recievedTask string) StepsResponse {
+func generateSteps(recievedTask string, tag string) StepsResponse {
 	ctx := context.Background()
+
+	icons, err := db.GetIconsByTag(tag) 
+
+	if err != nil {
+		log.Println(err);
+		panic(err)
+	}
+
+	iconsText := parseIconsToText(icons)
+
+	log.Println(iconsText)
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
@@ -49,6 +61,19 @@ Respond with only the JSON output, nothing else.`, recievedTask)
 	}
 
 	return parseStepsResponse(resp)
+}
+
+func parseIconsToText(icons []db.Icon) string {
+    var text string
+    text += "["
+    for i, icon := range icons {
+        text += fmt.Sprintf(`{IconPath: "%s", Description: "%s"}`, icon.IconPath, icon.Description)
+        if i < len(icons)-1 {
+            text += ", "
+        }
+    }
+    text += "]"
+    return text
 }
 
 func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {

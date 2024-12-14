@@ -27,7 +27,9 @@ func StepsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	generatedResp := generateSteps(req.Prompt)
+	tag := matchTag(req.Prompt)
+
+	generatedResp := generateSteps(req.Prompt, tag)
 
 	respondWithJSON(w, http.StatusOK, generatedResp)
 
