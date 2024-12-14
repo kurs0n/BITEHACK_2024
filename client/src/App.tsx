@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import { InstructionProvider } from "./TechnicalHelp/Context";
 import Container from "./TechnicalHelp/Container";
 import background from "./assets/background.png";
