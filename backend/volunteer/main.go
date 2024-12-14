@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 	"net"
+	"volunteer/gen/volunteer"
 
-	"backend/services/volunteer/gen/volunteer"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

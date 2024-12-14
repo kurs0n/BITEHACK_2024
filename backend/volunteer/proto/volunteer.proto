@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "/volunteer";
+
+package volunteer;
+
+service VolunteerService {
+  rpc GetVolunteer(GetVolunteerRequest) returns (GetVolunteerResponse);
+  rpc ListVolunteers(ListVolunteersRequest) returns (ListVolunteersResponse);
+  rpc CreateVolunteer(CreateVolunteerRequest) returns (CreateVolunteerResponse);
+}
+
+message GetVolunteerRequest {
+    int32 id = 1;
+}
+
+message Volunteer {
+    int32 id = 1;
+    string name = 2;
+    string surname = 3; 
+    string email = 4;
+    string telephone_number=5;
+    optional string photo = 6;
+    repeated string tags = 7;
+    string voivodeship = 8;
+}
+
+message GetVolunteerResponse {
+    Volunteer volunteer = 1;
+}
+
+message ListVolunteersRequest {
+}
+
+message ListVolunteersResponse {
+    repeated Volunteer volunteers = 1;
+}
+
+message CreateVolunteerRequest {
+    Volunteer volunteer = 1;
+}
+
+message CreateVolunteerResponse {
+    Volunteer volunteer = 1;
+}
