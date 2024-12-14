@@ -10,11 +10,12 @@ type TaskProps = {
 const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
   const { instructions } = useInstructions(); // Access the instructions from the context
   const [detailedStep, setDetailedStep] = useState<string | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false); // Track if the task is expanded
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTaskClick = async () => {
     if (detailedStep === null) {
-      // Only fetch if detailedStep is not already set
+      setIsLoading(true);
       try {
         // Create the request body with the entire instruction list and the prompt
         const body = JSON.stringify({
@@ -38,6 +39,9 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
         }
       } catch (error) {
         console.error("Error fetching detailed step:", error);
+      }
+      finally{
+        setIsLoading(false);
       }
     }
 
