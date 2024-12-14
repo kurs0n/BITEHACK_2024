@@ -40,7 +40,7 @@ func generateSteps(recievedTask string, tag string) StepsResponse {
 			log.Fatalf("Error closing Generative AI client: %v", err)
 		}
 	}(client)
-	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. Provide a step-by-step guide in response to the following task: "%s". Each step must be in a numbered JSON format as shown below:
+	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. Provide a step-by-step guide in response to the following task: "%s" . Each step must be in a numbered JSON format as shown below:
 [
   {
     "index": 1,
@@ -57,7 +57,7 @@ For each step, match the most relevant icon from the provided list of icons base
 
 %s
 
-Respond with only the JSON output, nothing else.`, recievedTask, iconsText)
+Respond with only the JSON output, in the same language as the task, nothing else.`, recievedTask, iconsText)
 
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
