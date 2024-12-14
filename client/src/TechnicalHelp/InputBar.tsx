@@ -48,7 +48,7 @@ const InputBar: React.FC = () => {
         type="text"
         value={query}
         onChange={handleChange}
-        className="border border-gray-300 rounded-l-lg p-2 flex-1"
+        className="rounded-l-lg p-2 w-60"
         placeholder="Tutaj możesz wpisać swoje pytanie"
       />
       <button type="submit" className="bg-[#B5673E] text-white px-4 py-2 rounded-r-lg">

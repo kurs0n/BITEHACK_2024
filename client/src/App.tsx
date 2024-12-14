@@ -3,7 +3,7 @@ import Container from "./TechnicalHelp/Container";
 
 function App() {
   return (
-    <div className="h-screen flex justify-center items-center bg-slate-400">
+    <div className="h-screen flex justify-center items-center bg-main">
       <InstructionProvider>
         <Container />
       </InstructionProvider>
