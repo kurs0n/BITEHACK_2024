@@ -51,3 +51,29 @@ li.expand {
   padding-bottom: 10px;
   opacity: 1; /* Make it visible */
 }
+
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the vertical scrollbar */
+  height: 8px; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #453629; /* Background color of the scrollbar track (from .bg-main) */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ecddd07e; /* Color of the scrollbar thumb (from .bg-1) */
+  border-radius: 4px; /* Round edges for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d8cdbf7a; /* Darker shade on hover (from .bg-2) */
+}
+
+/* Optional: Add for specific scrollable elements */
+.my-scrollable-element {
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Hides horizontal scrolling (optional) */
+}
