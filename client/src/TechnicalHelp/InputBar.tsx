@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { useInstructions } from "./Context";
 import Microphone from "./Microphone";
 
-const InputBar: React.FC = () => {
+interface InputBarProps {
+  setIsLoading: (loading: boolean) => void; // Funkcja do ustawiania stanu isLoading
+}
+
+const InputBar: React.FC<InputBarProps> = ({ setIsLoading }) => {
   const [query, setQuery] = useState("");
   const { fetchInstructions } = useInstructions();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // updates query from keyboard input
     setQuery(e.target.value);
   };
 
   const handleTranscriptChange = (transcript: string) => {
-    // updates query from audio transcript
-    console.log("transkrypcja: " + transcript);
     setQuery(transcript);
   };
 
@@ -28,6 +29,8 @@ const InputBar: React.FC = () => {
       prompt: query,
     };
 
+    setIsLoading(true);
+
     try {
       const response = await fetch("http://localhost:3000/steps", {
         method: "POST",
@@ -38,26 +41,22 @@ const InputBar: React.FC = () => {
       });
 
       const data = await response.json();
-      console.log(data);
-
-      // Fetch instructions from the backend response
       fetchInstructions(data.steps);
 
-      // Clear the input field after submission
       setQuery("");
     } catch (error) {
       console.error("Error fetching instructions:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <form className="flex items-center w-full mb-4 rounded-full border-stone-800 border-4" onSubmit={handleSubmit}>
-      {/* Icon for the question mark */}
       <div className="p-2 text-gray-700 bg-1 rounded-l-full">
         <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
       </div>
 
-      {/* Input field for typing the query */}
       <input
         type="text"
         value={query}

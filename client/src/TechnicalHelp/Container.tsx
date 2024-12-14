@@ -6,6 +6,7 @@ import { useInstructions } from "./Context";
 const Container: React.FC = () => {
   const { instructions } = useInstructions();
   const [isTyping, setIsTyping] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsTyping(false), 1500);
@@ -20,10 +21,14 @@ const Container: React.FC = () => {
         }`}
         style={{ width: "fit-content", fontWeight: 800 }}
       >
-        Witaj, w czym mogę ci dzisiaj pomóc?
+         {isLoading ? (
+          <div className="animate-spin border-t-4 border-b-4 border-black rounded-full w-8 h-8 mx-auto"></div>
+        ) : (
+          "Witaj, w czym mogę ci dzisiaj pomóc?"
+        )}
       </h1>
       <div className="flex justify-between items-center p-4 rounded-lg">
-        <InputBar />
+        <InputBar setIsLoading={setIsLoading} />
       </div>
       <div className="bg-main p-6 rounded-3xl space-y-4">
         <InstructionList instructions={instructions} />
