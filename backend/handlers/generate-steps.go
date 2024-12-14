@@ -81,6 +81,19 @@ func parseIconsToText(icons []db.Icon) string {
 	return text
 }
 
+func parseInstructionsToText(instructions []Instruction) string {
+	var text string
+	text += "["
+	for i, instruction := range instructions {
+		text += fmt.Sprintf(`{Index: %d, Description: "%s"}`, instruction.Index, instruction.Description)
+		if i < len(instructions)-1 {
+			text += ", "
+		}
+	}
+	text += "]"
+	return text
+}
+
 func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
 	var stepsResponse StepsResponse
 
@@ -112,7 +125,7 @@ func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
 	}
 }
 
-func detailedStepGenerator(step string) string {
+func detailedStepGenerator(step string, instructions []Instruction) string {
 	ctx := context.Background()
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
@@ -131,9 +144,16 @@ func detailedStepGenerator(step string) string {
 		}
 	}(client)
 
+	allSteps := parseInstructionsToText(instructions)
+
 	prompt := fmt.Sprintf(`You are a helpful assistant for seniors. 
+Below is a series of steps for a specific task. Use this context to provide a detailed and precise explanation for the highlighted step.
+
+Steps for the task:
+%s
+
 Provide a detailed and precise explanation for the following step: "%s". 
-Respond in the same language as the step, and provide only the explanation, nothing else.`, step)
+Respond in the same language as the step, and provide only the explanation, nothing else.`, allSteps, step)
 
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))

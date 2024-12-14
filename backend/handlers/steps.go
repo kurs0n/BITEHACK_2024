@@ -21,6 +21,16 @@ type StepsResponse struct {
 	Steps []StepResponse `json:"steps"`
 }
 
+type Instruction struct {
+    Index       int32  `json:"index"`
+    Description string `json:"description"`
+}
+
+type DetailedStepRequest struct {
+	Instructions []Instruction `json:"instruction-list"`
+    Prompt       string        `json:"prompt"`
+}
+
 func StepsHandler(w http.ResponseWriter, r *http.Request) {
 	var req StepsRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -37,13 +47,13 @@ func StepsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func detailedStepHandler(w http.ResponseWriter, r *http.Request) {
-	var req StepsRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
+	var req DetailedStepRequest
+    if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-	generatedResp := detailedStepGenerator(req.Prompt)
+	generatedResp := detailedStepGenerator(req.Prompt, req.Instructions)
 
 	respondWithJSON(w, http.StatusOK, generatedResp)
 }
