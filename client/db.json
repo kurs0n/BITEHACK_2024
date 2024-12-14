@@ -1,30 +1,39 @@
 {
-    "steps": {
-        "steps": [
-            {
-                "index": 1,
-                "description": "Otwórz aplikację WhatsApp na swoim telefonie."
-            },
-            {
-                "index": 2,
-                "description": "Znajdź czat zawierający zdjęcie, które chcesz pobrać."
-            },
-            {
-                "index": 3,
-                "description": "Stuknij i przytrzymaj zdjęcie, które chcesz pobrać. Zaznacz je."
-            },
-            {
-                "index": 4,
-                "description": "Pojawi się menu opcji. Poszukaj opcji Zapisz lub podobnej (np. ikona strzałki skierowanej w dół)."
-            },
-            {
-                "index": 5,
-                "description": "Stuknij w opcję Zapisz. Zdjęcie zostanie zapisane do galerii zdjęć Twojego telefonu."
-            },
-            {
-                "index": 6,
-                "description": "Możesz sprawdzić zapisane zdjęcie w aplikacji galerii lub menadżerze plików Twojego telefonu."
-            }
-        ]
-    }
+  "steps": {
+    "steps": [
+      {
+        "index": 1,
+        "description": "Otwórz aplikację WhatsApp.",
+        "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-chats.jpeg"
+      },
+      {
+        "index": 2,
+        "description": "Znajdź rozmowę z Twoim wnuczkiem na liście czatów.",
+        "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-chat-user.jpeg"
+      },
+      {
+        "index": 3,
+        "description": "Stuknij w pole tekstowe, aby otworzyć klawiaturę.",
+        "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-examplechat.jpeg"
+      },
+      {
+        "index": 4,
+        "description": "Znajdź ikonę przypominającą spinacz biurowy lub symbol „+” (w zależności od wersji WhatsApp).",
+        "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-add-attachment.jpeg"
+      },
+      {
+        "index": 5,
+        "description": "Wybierz opcję „Zdjęcie” lub „Galeria”.",
+        "icon": "https://bitehack.s3.eu-north-1.amazonaws.com/whatsapp-add-attachment.jpeg"
+      },
+      {
+        "index": 6,
+        "description": "Wybierz zdjęcie, które chcesz wysłać."
+      },
+      {
+        "index": 7,
+        "description": "Stuknij przycisk „Wyślij” (zazwyczaj ikonka samolotu)."
+      }
+    ]
+  }
 }
