@@ -14,6 +14,7 @@ type StepsRequest struct {
 type StepResponse struct {
 	Index       int32  `json:"index"`
 	Description string `json:"description"`
+	Icon        string `json:"icon,omitempty"`
 }
 
 type StepsResponse struct {
@@ -27,10 +28,24 @@ func StepsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	generatedResp := generateSteps(req.Prompt)
+	tag := matchTag(req.Prompt)
+
+	generatedResp := generateSteps(req.Prompt, tag)
 
 	respondWithJSON(w, http.StatusOK, generatedResp)
 
+}
+
+func detailedStepHandler(w http.ResponseWriter, r *http.Request) {
+	var req StepsRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	generatedResp := detailedStepGenerator(req.Prompt)
+
+	respondWithJSON(w, http.StatusOK, generatedResp)
 }
 
 func respondWithJSON(w http.ResponseWriter, status int, payload interface{}) {
@@ -41,4 +56,5 @@ func respondWithJSON(w http.ResponseWriter, status int, payload interface{}) {
 
 func RegisterStepsRoutes(r chi.Router) {
 	r.Post("/steps", StepsHandler)
+	r.Post("/detailed-step", detailedStepHandler)
 }
