@@ -53,7 +53,7 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
       </span>
       <div className="h-full bg-2 rounded-r-2xl">
         <li
-          className={`flex flex-col items-start bg-1 p-2 px-6 border-stone-800 border-l-4 rounded-r-xl w-full transition-all duration-500 ease-in-out ${
+          className={`flex flex-col items-start bg-1 p-2 px-6 border-stone-800 border-l-4 rounded-r-xl transition-all duration-500 ease-in-out ${
             isExpanded ? "w-full" : "w-fit"
           }`}
           onClick={handleTaskClick}
