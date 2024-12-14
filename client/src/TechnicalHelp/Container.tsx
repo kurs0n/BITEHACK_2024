@@ -13,12 +13,12 @@ const Container: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-main px-32 py-24 border-8 border-stone-800">
+    <div className="bg-main p-20 border-8 border-stone-800 rounded-3xl w-2/3">
       <h1
         className={`text-4xl text-center mx-auto overflow-hidden whitespace-nowrap mb-12 ${
           isTyping ? "animate-typing border-r-4 border-black" : ""
         }`}
-        style={{ width: "fit-content" }}
+        style={{ width: "fit-content", fontWeight: 800 }}
       >
         Witaj, w czym mogę ci dzisiaj pomóc?
       </h1>

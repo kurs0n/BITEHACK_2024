@@ -16,7 +16,7 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
       >
         {" "}
         <div className="flex items-center space-x-4">
-          <span className="text-2xl font-semibold text-stone-800 mr-4 ">{index}.</span>
+          <span className="text-2xl font-semibold text-stone-800 mr-4">{index}.</span>
           <span>{description}</span>
           {icon && <img src={icon} alt={`icon-${index}`} className="h-12 rounded-xl" />}
         </div>

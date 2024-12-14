@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .bg-main {
-  background-color: rgb(225, 208, 187);
+  background-color: #ecddd0;
 }
 
 .bg-1 {
-  background-color: rgb(243, 227, 208);
+  background-color: #f5ebe0;
 }
 
 @keyframes gradientBackground {
