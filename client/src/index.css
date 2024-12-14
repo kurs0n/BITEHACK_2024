@@ -5,3 +5,19 @@
 .bg-main {
   background-color: rgb(225, 208, 187);
 }
+
+.bg-1 {
+  background-color: rgb(243, 227, 208);
+}
+
+@keyframes gradientBackground {
+  0% {
+    background-color: #e1d0bb;
+  }
+  50% {
+    background-color: #d5e6b5;
+  }
+  100% {
+    background-color: #e1d0bb;
+  }
+}
