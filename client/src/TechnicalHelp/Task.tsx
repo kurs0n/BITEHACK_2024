@@ -8,11 +8,13 @@ type TaskProps = {
 
 const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
   const [detailedStep, setDetailedStep] = useState<string | null>(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // Track if the task is expanded
 
   const handleTaskClick = async () => {
     if (detailedStep === null) {
+      // Only fetch if detailedStep is not already set
       try {
+        // Create the request body
         const body = JSON.stringify({
           prompt: description,
         });
@@ -27,36 +29,48 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
 
         if (response.ok) {
           const data = await response.text();
-          setDetailedStep(data);
+          setDetailedStep(data); // Set the detailed step
         }
       } catch (error) {
         console.error("Error fetching detailed step:", error);
       }
     }
 
+    // Toggle the expanded state
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <div className="group">
+    <div className="group h-full">
+      {/* Wrap the li in a div with full height */}
       <span className="text-sm text-stone-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         Kliknij by uzyskac wiecej informacji
       </span>
-      <li
-        className={`flex flex-col items-start bg-1 p-2 pl-6 border-stone-800 border-l-4 rounded-r-xl w-fit transition-all duration-300 ${
-          isExpanded ? "w-full" : "w-fit"
-        }`}
-        onClick={handleTaskClick}
-      >
-        <div className="flex items-center space-x-4">
-          <span className="text-2xl font-semibold text-stone-800 mr-4">{index}.</span>
-          <span>{description}</span>
-          {icon && <img src={icon} alt={`icon-${index}`} className="h-12 rounded-xl" />}
-        </div>
-        {isExpanded && detailedStep && (
-          <div className="text-stone-600 mx-12 my-3 py-4 border-t-2 border-stone-800">{detailedStep}</div>
-        )}
-      </li>
+      <div className="h-full bg-2 rounded-r-2xl">
+        <li
+          className={`flex flex-col items-start bg-1 p-2 px-6 border-stone-800 border-l-4 rounded-r-xl w-full transition-all duration-500 ease-in-out ${
+            isExpanded ? "w-full" : "w-fit"
+          }`}
+          onClick={handleTaskClick}
+        >
+          <div className="flex items-center space-x-4">
+            <span className="text-2xl font-semibold text-stone-800 mr-4">{index}.</span>
+            <span>{description}</span>
+            {icon && (
+              <img
+                src={icon}
+                alt={`icon-${index}`}
+                className="h-12 rounded-xl ml-auto" // Move icon to the right
+              />
+            )}
+          </div>
+          {isExpanded && detailedStep && (
+            <div className="text-stone-600 mx-12 my-3 py-4 border-t-2 border-stone-800">
+              {detailedStep} {/* Display the detailed step under the task */}
+            </div>
+          )}
+        </li>
+      </div>
     </div>
   );
 };
