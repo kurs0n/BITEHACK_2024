@@ -81,6 +81,19 @@ func parseIconsToText(icons []db.Icon) string {
 	return text
 }
 
+func parseInstructionsToText(instructions []Instruction) string {
+	var text string
+	text += "["
+	for i, instruction := range instructions {
+		text += fmt.Sprintf(`{Index: %d, Description: "%s"}`, instruction.Index, instruction.Description)
+		if i < len(instructions)-1 {
+			text += ", "
+		}
+	}
+	text += "]"
+	return text
+}
+
 func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
 	var stepsResponse StepsResponse
 
@@ -112,7 +125,7 @@ func parseStepsResponse(resp *genai.GenerateContentResponse) StepsResponse {
 	}
 }
 
-func detailedStepGenerator(step string) string {
+func detailedStepGenerator(step string, instructions []Instruction) string {
 	ctx := context.Background()
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
