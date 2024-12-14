@@ -1,0 +1,30 @@
+{
+    "steps": {
+        "steps": [
+            {
+                "index": 1,
+                "description": "Otwórz aplikację WhatsApp na swoim telefonie."
+            },
+            {
+                "index": 2,
+                "description": "Znajdź czat zawierający zdjęcie, które chcesz pobrać."
+            },
+            {
+                "index": 3,
+                "description": "Stuknij i przytrzymaj zdjęcie, które chcesz pobrać. Zaznacz je."
+            },
+            {
+                "index": 4,
+                "description": "Pojawi się menu opcji. Poszukaj opcji Zapisz lub podobnej (np. ikona strzałki skierowanej w dół)."
+            },
+            {
+                "index": 5,
+                "description": "Stuknij w opcję Zapisz. Zdjęcie zostanie zapisane do galerii zdjęć Twojego telefonu."
+            },
+            {
+                "index": 6,
+                "description": "Możesz sprawdzić zapisane zdjęcie w aplikacji galerii lub menadżerze plików Twojego telefonu."
+            }
+        ]
+    }
+}
