@@ -14,8 +14,6 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	"github.com/go-chi/chi/v5"
 )
 
 type VolunteerRequest struct {
@@ -69,16 +67,16 @@ func createVolunteer(w http.ResponseWriter, r *http.Request) {
 }
 
 func parseVolunteerTagsToText(volunteerTags []db.VolunteerTag) string {
-    var text string
-    text += "["
-    for i, volunteerTag := range volunteerTags {
-        text += fmt.Sprintf(`{ID: %d, Tag: "%s"}`, volunteerTag.ID, volunteerTag.Tag)
-        if i < len(volunteerTags)-1 {
-            text += ", "
-        }
-    }
-    text += "]"
-    return text
+	var text string
+	text += "["
+	for i, volunteerTag := range volunteerTags {
+		text += fmt.Sprintf(`{ID: %d, Tag: "%s"}`, volunteerTag.ID, volunteerTag.Tag)
+		if i < len(volunteerTags)-1 {
+			text += ", "
+		}
+	}
+	text += "]"
+	return text
 }
 
 func listVolunteers(w http.ResponseWriter, r *http.Request) {
@@ -150,7 +148,11 @@ func getTagsFromPrompt(recievedPrompt string) []string {
 		}
 	}(client)
 
-	tagsList := "[security, web, backend, frontend, authentication, database]"
+	tagsList, err := db.GetVolunteerTags()
+	if err != nil {
+		log.Fatalf("Error getting volunteer tags: %v", err)
+	}
+	tagsListText := parseVolunteerTagsToText(tagsList)
 
 	prompt := fmt.Sprintf(`You are a helpful assistant. Match the most relevant tags from the following list to the given task. 
 
@@ -158,7 +160,7 @@ Task: "%s"
 
 Tags: %s
 
-Return only the tags that are relevant to the task, separated by commas. If no tags are relevant, return an empty string.`, recievedPrompt, tagsList)
+Return only the tags that are relevant to the task, separated by commas. If no tags are relevant, return an empty string.`, recievedPrompt, tagsListText)
 
 	model := client.GenerativeModel("gemini-1.5-flash")
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
