@@ -24,6 +24,11 @@ CREATE TABLE IF NOT EXISTS volunteers (
     voivodeship VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS volunteer_tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tag VARCHAR(255) NOT NULL
+);
+
 -- Insert tags
 INSERT INTO tags (name) VALUES ('whatsapp');
 INSERT INTO tags (name) VALUES ('ios_system');
@@ -177,3 +182,16 @@ VALUES
     ('https://bitehack.s3.eu-north-1.amazonaws.com/contacts_system_ios.jpeg',
      'This icon represents your phonebook. Use it to find, add, or edit your contacts.',
      'ios_system');
+
+INSERT INTO volunteer_tags (tag) VALUES ('ZAKUPY');
+INSERT INTO volunteer_tags (tag) VALUES ('LEKI');
+INSERT INTO volunteer_tags (tag) VALUES ('SPRZATANIE');
+INSERT INTO volunteer_tags (tag) VALUES ('SPACER');
+INSERT INTO volunteer_tags (tag) VALUES ('TRANSPORT');
+INSERT INTO volunteer_tags (tag) VALUES ('POSILKI');
+INSERT INTO volunteer_tags (tag) VALUES ('OPIEKA');
+INSERT INTO volunteer_tags (tag) VALUES ('ROZMOWA');
+INSERT INTO volunteer_tags (tag) VALUES ('NAPRAWA');
+INSERT INTO volunteer_tags (tag) VALUES ('TECHNOLOGIA');
+INSERT INTO volunteer_tags (tag) VALUES ('OGROD');
+INSERT INTO volunteer_tags (tag) VALUES ('PISANIE');
