@@ -18,8 +18,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var client volunteer.VolunteerServiceClient
-
 func main() {
 
 	db.Init()
@@ -41,7 +39,6 @@ func main() {
 
 	r.Use(middleware.Logger)
 	handlers.RegisterStepsRoutes(r)
-	handlers.RegisterVolunteerRoutes(r, client)
 
 	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -49,7 +46,8 @@ func main() {
 	}
 	defer conn.Close()
 
-	client = volunteer.NewVolunteerServiceClient(conn)
+	client := volunteer.NewVolunteerServiceClient(conn)
+	handlers.RegisterVolunteerRoutes(r, client)
 
 	port := os.Getenv("PORT")
 	if port == "" {
