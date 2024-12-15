@@ -5,7 +5,7 @@ import TitlePage from "./components/TitlePage";
 import Senior from "./components/Senior";
 import Volunteer from "./components/Volunteer";
 import TechHelp from "./TechHelp/Main";
-import VolunteerHelpContainer from "./VolunteerHelp/Container";
+import VolunteerHelp from "./VolunteerHelp/Main";
 import { InstructionProvider } from "./TechHelp/Context";
 
 const App: React.FC = () => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
           }
         />
 
-        <Route path="/volunteer-help" element={<VolunteerHelpContainer />} />
+        <Route path="/volunteer-help" element={<VolunteerHelp />} />
       </Routes>
     </Router>
   );

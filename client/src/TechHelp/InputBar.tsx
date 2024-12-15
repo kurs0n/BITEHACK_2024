@@ -55,11 +55,14 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading }) => {
   };
 
   return (
-    <form className="flex items-center w-full mb-4 rounded-full border-stone-800 border-4" onSubmit={handleSubmit}>
+    <form
+      className="flex items-center w-3/4 mb-12 rounded-full border-stone-800 border-4 mx-auto"
+      onSubmit={handleSubmit}
+    >
+      {" "}
       <div className="p-2 text-gray-700 bg-1 rounded-l-full">
         <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
       </div>
-
       <input
         type="text"
         value={query}

@@ -25,6 +25,7 @@ export default {
       typing: "typing 1.5s steps(30) forwards, blink 1s step-end infinite", // Typing with blinking cursor
       "typing-cursor": "typing 4s steps(30) forwards", // Typing only (no cursor blinking)
       spin: "spin 1.5s linear infinite",
+      pulse: "pulse 1s ease-in-out infinite",
     },
   },
   plugins: [],
