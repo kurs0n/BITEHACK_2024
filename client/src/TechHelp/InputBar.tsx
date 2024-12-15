@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useInstructions } from "./Context";
 import Microphone from "./Microphone";
+import HelperModal from "../helper/helper";
 
 interface InputBarProps {
   setIsLoading: (loading: boolean) => void; // Function to set the isLoading state
@@ -60,9 +61,7 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading }) => {
       onSubmit={handleSubmit}
     >
       {" "}
-      <div className="p-2 text-gray-700 bg-1 rounded-l-full">
-        <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
-      </div>
+      <HelperModal src="/tech-help-helper.png"/>
       <input
         type="text"
         value={query}

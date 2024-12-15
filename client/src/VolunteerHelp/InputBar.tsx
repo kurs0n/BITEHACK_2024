@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Microphone from "./Microphone";
 import { Regions } from "../VolounterSignUp/FormData";
+import HelperModal from "../helper/helper";
 
 type InputBarProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +13,7 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
   const [input, setInput] = useState("");
   const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  const [isOpen, setIsOpen] = useState(false); 
 
   // Mapowanie enuma na tablicę wartości
   const voivodeships = Object.values(Regions);
@@ -52,13 +54,12 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
     setInput(transcript);
   };
 
+
   return (
     <form className="flex flex-col w-full mb-8" onSubmit={handleSubmit}>
       <div className="flex items-center mb-2">
         <div className="flex w-full border-4 border-stone-800 rounded-full">
-          <div className="p-2 text-stone-700 bg-1 rounded-l-full">
-            <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
-          </div>
+          <HelperModal src="/volunteer-search-helper.png"/>
           <input
             type="text"
             value={input}

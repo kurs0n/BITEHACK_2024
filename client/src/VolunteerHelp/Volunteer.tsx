@@ -6,7 +6,7 @@ interface VolunteerProps {
   surname: string;
   email: string;
   phone_number: string;
-  tags: string[];
+  tags: string;
   voivodeship: string;
   photo: string;
 }
