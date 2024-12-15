@@ -2,17 +2,46 @@
 import React, { useState } from "react";
 import Microphone from "./Microphone";
 
-const InputBar: React.FC = () => {
+type InputBarProps = {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setVolunteers: React.Dispatch<React.SetStateAction<any[]>>;
+};
+
+const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
   const [input, setInput] = useState("");
   const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
   const voivodeships = ["Mazowieckie", "Małopolskie", "Śląskie", "Dolnośląskie", "Wielkopolskie", "Pomorskie"];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle input submission here, like adding to a list or sending to an API
-    console.log(input, selectedVoivodeship);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/list-volunteer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: input,
+          voivodeship: selectedVoivodeship,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setVolunteers(data); // Update the volunteers state with the fetched data
+      } else {
+        console.error("Failed to fetch volunteer data.");
+      }
+    } catch (error) {
+      console.error("Error fetching volunteer data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+
     setInput("");
     setSelectedVoivodeship("");
   };
@@ -24,7 +53,6 @@ const InputBar: React.FC = () => {
   return (
     <form className="flex flex-col w-full mb-8" onSubmit={handleSubmit}>
       <div className="flex items-center mb-2">
-        {/* Wrap the input in a div with the same border */}
         <div className="flex w-full border-4 border-stone-800 rounded-full">
           <div className="p-2 text-stone-700 bg-1 rounded-l-full">
             <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>

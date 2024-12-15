@@ -1,27 +1,20 @@
 // src/VolunteerHelp/Container.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputBar from "./InputBar";
 import VolunteerList from "./VolunteerList";
 
 const Container: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // Example of simulating a loading state for demonstration purposes
-    const timer = setTimeout(() => setIsLoading(false), 1500); // Hide loading after 1.5s
-    return () => clearTimeout(timer);
-  }, []);
+  const [volunteers, setVolunteers] = useState<any[]>([]);
 
   return (
-    <div className=" h-full bg-trans p-20 w-3/4 backdrop-blur-lg">
+    <div className="h-full bg-trans p-20 w-3/4 backdrop-blur-lg">
       <div className="flex mb-12">
-        {/* Left Column (Title and InputBar) */}
         <div className="w-1/2 pr-4 flex flex-col justify-center items-center">
           <h1 className="text-4xl text-center mb-12">Znajdź Wolontariusza</h1>
-          <InputBar setIsLoading={setIsLoading} />
+          <InputBar setIsLoading={setIsLoading} setVolunteers={setVolunteers} />
         </div>
 
-        {/* Right Column (VolunteerList) */}
         <div className="w-1/2 pl-4">
           <div className="bg-main p-6 rounded-3xl space-y-4">
             <div className="flex justify-center items-center space-x-2">
@@ -35,7 +28,7 @@ const Container: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <VolunteerList />
+                <VolunteerList volunteers={volunteers} />
               )}
             </div>
           </div>
