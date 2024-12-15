@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.4.0
 // - protoc             v5.27.1
-// source: services/volunteer/proto/volunteer.proto
+// source: volunteer/proto/volunteer.proto
 
 package volunteer
 
@@ -182,5 +182,5 @@ var VolunteerService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "services/volunteer/proto/volunteer.proto",
+	Metadata: "volunteer/proto/volunteer.proto",
 }
