@@ -61,7 +61,20 @@ func createVolunteer(w http.ResponseWriter, r *http.Request) {
 }
 
 func listVolunteers(w http.ResponseWriter, r *http.Request) {
-	grpcReq := &volunteer.ListVolunteersRequest{}
+	var req struct {
+		Tags        []string `json:"tags"`
+		Voivodeship string   `json:"voivodeship"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	grpcReq := &volunteer.ListVolunteersRequest{
+		Tags:        req.Tags,
+		Voivodeship: req.Voivodeship,
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
