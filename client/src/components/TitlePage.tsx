@@ -17,7 +17,7 @@ const TitlePage: React.FC = () => {
       <div className="flex space-x-64 font-bold text-2xl">
         <Link
           to="/senior"
-          className="px-8 py-12 bg-1 text-stone-800 rounded-3xl border-stone-800 border-4 hover:bg-amber-100 transition"
+          className="px-8 py-20 bg-1 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Seniorem szukającym wsparcia
           <div className="flex justify-center items-center mt-4">
@@ -25,9 +25,8 @@ const TitlePage: React.FC = () => {
           </div>
         </Link>
         <Link
-
           to="/volunteer-signup"
-          className="px-8 py-4 bg-lime-300 text-stone-800 rounded-xl shadow-lg hover:bg-lime-400 transition"
+          className="px-8 py-20 bg-1 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Wolontariuszem chcącym pomóc
           <div className="flex justify-center items-center mt-4">

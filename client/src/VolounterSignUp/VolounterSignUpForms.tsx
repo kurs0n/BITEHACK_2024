@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Categories } from "./FormData"; 
-import { Regions } from "./FormData";    
+import { Categories } from "./FormData";
+import { Regions } from "./FormData";
 
 interface VolunteerFormData {
   name: string;
@@ -35,13 +35,11 @@ const VolunteerSignUpForm: React.FC = () => {
   const toggleCategory = (category: string) => {
     const { tags: selectedCategories } = formData;
     if (selectedCategories.includes(category)) {
-      // Usuń kategorię
       setFormData({
         ...formData,
         tags: selectedCategories.filter((item) => item !== category),
       });
     } else {
-      // Dodaj kategorię
       setFormData({
         ...formData,
         tags: [...selectedCategories, category],
@@ -52,7 +50,6 @@ const VolunteerSignUpForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Przesyłanie danych POST
     try {
       const response = await fetch("http://localhost:3000/create-volunteer", {
         method: "POST",
@@ -78,8 +75,11 @@ const VolunteerSignUpForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col space-y-4 bg-white p-6 rounded-lg shadow-md w-full max-w-md"
+      className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-1 p-4 sm:p-6 md:p-8 rounded-3xl w-full max-w-5xl"
     >
+      <h2 className="col-span-1 sm:col-span-2 text-3xl font-bold text-center text-stone-800 mb-4">
+        Zapisz Się jako Wolontariusz
+      </h2>
       <div>
         <label className="block text-stone-600 font-semibold mb-2">Imię</label>
         <input
@@ -87,7 +87,7 @@ const VolunteerSignUpForm: React.FC = () => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
           placeholder="Wpisz swoje imię"
           required
         />
@@ -99,7 +99,7 @@ const VolunteerSignUpForm: React.FC = () => {
           name="surname"
           value={formData.surname}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
           placeholder="Wpisz swoje nazwisko"
           required
         />
@@ -111,7 +111,7 @@ const VolunteerSignUpForm: React.FC = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
           placeholder="Wpisz swój email"
           required
         />
@@ -123,16 +123,15 @@ const VolunteerSignUpForm: React.FC = () => {
           name="telephone_number"
           value={formData.telephone_number}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
           placeholder="Wpisz swój numer telefonu"
           required
           pattern="^[0-9]{9}$"
         />
       </div>
-
-      <div>
+      <div className="sm:col-span-2">
         <label className="block text-stone-600 font-semibold mb-2">Wybierz kategorie pomocy</label>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-wrap gap-4">
           {Object.keys(Categories).map((key) => {
             const category = Categories[key as keyof typeof Categories];
             const isSelected = formData.tags.includes(category);
@@ -140,9 +139,11 @@ const VolunteerSignUpForm: React.FC = () => {
               <button
                 type="button"
                 key={category}
-                className={`px-4 py-2 rounded-md ${
-                  isSelected ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
-                } hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`px-6 py-2 rounded-full border-2 font-semibold text-sm transition-all shadow-md focus:outline-none ${
+                  isSelected
+                    ? "bg-lime-400 border-lime-600 text-stone-900"
+                    : "bg-stone-200 border-stone-400 text-stone-800 hover:bg-stone-300"
+                }`}
                 onClick={() => toggleCategory(category)}
               >
                 {category}
@@ -151,14 +152,16 @@ const VolunteerSignUpForm: React.FC = () => {
           })}
         </div>
       </div>
-      <div>
-        <label className="block text-stone-600 font-semibold mb-2">Wybierz województwo</label>
+      <div className="sm:col-span-2 flex justify-center">
         <select
           name="voivodeship"
           value={formData.voivodeship}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-1/2 sm:w-1/4 px-4 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
+          <option value="" disabled>
+            Wybierz województwo
+          </option>
           {Object.keys(Regions).map((key) => (
             <option key={key} value={Regions[key as keyof typeof Regions]}>
               {Regions[key as keyof typeof Regions]}
@@ -167,12 +170,14 @@ const VolunteerSignUpForm: React.FC = () => {
         </select>
       </div>
 
-      <button
-        type="submit"
-        className="bg-stone-600 text-white py-2 px-4 rounded-md hover:bg-stone-700 transition duration-300"
-      >
-        Wyślij formularz
-      </button>
+      <div className="sm:col-span-2 flex justify-center">
+        <button
+          type="submit"
+          className="bg-stone-600 text-white py-3 px-6 rounded-lg font-bold hover:bg-stone-700 transition duration-300 w-1/2"
+        >
+          Wyślij formularz
+        </button>
+      </div>
     </form>
   );
 };

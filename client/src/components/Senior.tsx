@@ -13,11 +13,18 @@ const Senior: React.FC = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <h1 className="text-6xl font-bold mb-32 text-stone-800 ]">Pomoc dla Seniorów</h1>
+      <Link
+        to="/"
+        className="absolute top-6 left-6 text-stone-800 text-3xl p-4 bg-1 rounded-full shadow-lg border-2 border-stone-800 hover:bg-amber-50 transition"
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+      </Link>
+
+      <h1 className="text-6xl font-bold mb-32 text-stone-800">Pomoc dla Seniorów</h1>
       <div className="flex space-x-64 font-bold text-2xl">
         <Link
           to="/tech-help"
-          className="px-8 py-12 bg-lime-200 text-stone-800 rounded-3xl border-stone-800 border-4 hover:bg-lime-300 transition"
+          className="px-8 py-20 bg-lime-200 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Pomoc Technologiczna
           <div className="flex justify-center items-center mt-8">
@@ -26,7 +33,7 @@ const Senior: React.FC = () => {
         </Link>
         <Link
           to="/volunteer-help"
-          className="px-8 py-12 bg-orange-200 text-stone-800 rounded-3xl border-stone-800 border-4 hover:bg-orange-300 transition"
+          className="px-8 py-20 bg-orange-200 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Pomoc Wolontariusza
           <div className="flex justify-center items-center mt-8">
