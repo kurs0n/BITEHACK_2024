@@ -12,14 +12,14 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
   const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-  const voivodeships = ["Mazowieckie", "Małopolskie", "Śląskie", "Dolnośląskie", "Wielkopolskie", "Pomorskie"];
+  const voivodeships = ["MAZOWIECKIE"];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await fetch("/list-volunteer", {
+      const response = await fetch("/list-volunteers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
