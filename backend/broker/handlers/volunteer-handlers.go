@@ -6,8 +6,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-chi/chi/v5"
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/option"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -23,13 +28,13 @@ type VolunteerRequest struct {
 	Photo           string   `json:"photo,omitempty"`
 }
 
-var client volunteer.VolunteerServiceClient
+var clientGRPC volunteer.VolunteerServiceClient
 
 func RegisterVolunteerRoutes(r chi.Router, client1 volunteer.VolunteerServiceClient) {
 	r.Post("/create-volunteer", createVolunteer)
 	r.Post("/list-volunteers", listVolunteers)
 
-	client = client1
+	clientGRPC = client1
 }
 
 func createVolunteer(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +60,7 @@ func createVolunteer(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	_, err := client.CreateVolunteer(ctx, grpcReq)
+	_, err := clientGRPC.CreateVolunteer(ctx, grpcReq)
 	if err != nil {
 		log.Fatalf("could not create volunteer: %v", err)
 	}
@@ -77,25 +82,27 @@ func parseVolunteerTagsToText(volunteerTags []db.VolunteerTag) string {
 }
 
 func listVolunteers(w http.ResponseWriter, r *http.Request) {
-	var req struct {
-		Tags        []string `json:"tags"`
-		Voivodeship string   `json:"voivodeship"`
+	var request struct {
+		Prompt      string `json:"prompt"`
+		Voivodeship string `json:"voivodeship"`
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
+	tags := getTagsFromPrompt(request.Prompt)
+
 	grpcReq := &volunteer.ListVolunteersRequest{
-		Tags:        req.Tags,
-		Voivodeship: req.Voivodeship,
+		Tags:        tags,
+		Voivodeship: request.Voivodeship,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	grpcResp, err := client.ListVolunteers(ctx, grpcReq)
+	grpcResp, err := clientGRPC.ListVolunteers(ctx, grpcReq)
 	if err != nil {
 		http.Error(w, "Could not list volunteers: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -122,4 +129,61 @@ func getStringFromPointer(value *string) string {
 		return *value
 	}
 	return ""
+}
+
+func getTagsFromPrompt(recievedPrompt string) []string {
+	ctx := context.Background()
+
+	apiKey := os.Getenv("GEMINI_API_KEY")
+	if apiKey == "" {
+		log.Fatal("API key not set. Please set the GEMINI_API_KEY environment variable.")
+	}
+
+	client, err := genai.NewClient(ctx, option.WithAPIKey(apiKey))
+	if err != nil {
+		log.Fatalf("Error creating Generative AI client: %v", err)
+	}
+	defer func(client *genai.Client) {
+		err = client.Close()
+		if err != nil {
+			log.Fatalf("Error closing Generative AI client: %v", err)
+		}
+	}(client)
+
+	tagsList := "[security, web, backend, frontend, authentication, database]"
+
+	prompt := fmt.Sprintf(`You are a helpful assistant. Match the most relevant tags from the following list to the given task. 
+
+Task: "%s"
+
+Tags: %s
+
+Return only the tags that are relevant to the task, separated by commas. If no tags are relevant, return an empty string.`, recievedPrompt, tagsList)
+
+	model := client.GenerativeModel("gemini-1.5-flash")
+	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
+	if err != nil {
+		log.Fatalf("Error generating content: %v", err)
+	}
+
+	var tags []string
+	for _, candidate := range resp.Candidates {
+		if candidate.Content != nil {
+			log.Printf("Candidate Content: %+v", candidate.Content.Parts)
+			for _, part := range candidate.Content.Parts {
+				response := fmt.Sprintf("%v", part)
+				response = strings.TrimSpace(response)
+				if response != "" {
+					tags = strings.Split(response, ",")
+					for i := range tags {
+						tags[i] = strings.TrimSpace(tags[i])
+					}
+				}
+			}
+			break
+		}
+	}
+
+	return tags
+
 }
