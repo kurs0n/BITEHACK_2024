@@ -49,7 +49,7 @@ const VolunteerList: React.FC<VolunteerListProps> = ({ volunteers }) => {
                   surname={volunteer.surname}
                   email={volunteer.email}
                   phone_number={volunteer.telephone_number}
-                  tags={volunteer.tags}
+                  tags={volunteer.tags.join(' ')}
                   voivodeship={volunteer.voivodeship}
                   photo={volunteer.photo}
                 />
