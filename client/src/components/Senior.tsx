@@ -21,13 +21,13 @@ const Senior: React.FC = () => {
       </Link>
 
       <h1 className="text-6xl font-bold mb-32 text-stone-800">Pomoc dla Seniorów</h1>
-      <div className="flex space-x-64 font-bold text-2xl">
+      <div className="flex space-x-64 font-bold text-4xl">
         <Link
           to="/tech-help"
           className="px-8 py-20 bg-lime-200 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Pomoc Technologiczna
-          <div className="flex justify-center items-center mt-8">
+          <div className="flex justify-center items-center mt-12">
             <i className="fa-solid fa-mobile-screen-button fa-xl animate-pulse"></i>
           </div>{" "}
         </Link>
@@ -36,7 +36,7 @@ const Senior: React.FC = () => {
           className="px-8 py-20 bg-orange-200 text-stone-800 rounded-3xl border-amber-50 border-4 hover:border-stone-800 transition"
         >
           Pomoc Wolontariusza
-          <div className="flex justify-center items-center mt-8">
+          <div className="flex justify-center items-center mt-12">
             <i className="fa-solid fa-hand-holding-hand fa-xl animate-pulse"></i>
           </div>
         </Link>
