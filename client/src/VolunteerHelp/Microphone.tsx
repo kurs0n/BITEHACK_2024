@@ -46,12 +46,8 @@ const Microphone: React.FC<MicrophoneProps> = ({ language, onTranscriptChange })
   }, [transcript, listening, onTranscriptChange]);
 
   return (
-    <button
-      type="button"
-      className="p-4 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition"
-      onClick={onClick}
-    >
-      <i className={isMicOn ? "fa-solid fa-microphone" : "fa-solid fa-microphone-slash"}></i>
+    <button type="button" className="p-2 pr-2 bg-1" onClick={onClick}>
+      <i className={isMicOn ? "fa-solid fa-xl fa-microphone" : "fa-solid fa-xl fa-microphone-slash"}></i>
     </button>
   );
 };
