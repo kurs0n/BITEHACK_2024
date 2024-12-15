@@ -19,7 +19,7 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/list-volunteers", {
+      const response = await fetch("http://localhost:3000/list-volunteers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
