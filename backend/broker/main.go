@@ -14,6 +14,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"backend/gen/volunteer"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -40,7 +41,7 @@ func main() {
 	r.Use(middleware.Logger)
 	handlers.RegisterStepsRoutes(r)
 
-	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial("microservice:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
