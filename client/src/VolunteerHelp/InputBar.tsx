@@ -1,32 +1,62 @@
 // src/VolunteerHelp/InputBar.tsx
 import React, { useState } from "react";
+import Microphone from "./Microphone";
 
 const InputBar: React.FC = () => {
   const [input, setInput] = useState("");
+  const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+  const voivodeships = ["Mazowieckie", "Małopolskie", "Śląskie", "Dolnośląskie", "Wielkopolskie", "Pomorskie"];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle input submission here, like adding to a list or sending to an API
-    console.log(input);
+    console.log(input, selectedVoivodeship);
     setInput("");
+    setSelectedVoivodeship("");
+  };
+
+  const handleTranscriptChange = (transcript: string) => {
+    setInput(transcript);
   };
 
   return (
-    <form className="flex items-center w-full mb-4 rounded-full border-stone-800 border-4" onSubmit={handleSubmit}>
-      <div className="p-2 text-stone-700 bg-1 rounded-l-full">
-        <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
+    <form className="flex flex-col w-full mb-8" onSubmit={handleSubmit}>
+      <div className="flex items-center mb-2">
+        {/* Wrap the input in a div with the same border */}
+        <div className="flex w-full border-4 border-stone-800 rounded-full">
+          <div className="p-2 text-stone-700 bg-1 rounded-l-full">
+            <i className="fa-regular fa-xl fa-circle-question text-stone-800"></i>
+          </div>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="p-2 w-full focus:outline-none text-stone-800 placeholder-stone-500 bg-main bg-1 rounded-l-full"
+            placeholder="Tutaj wpisz jakiego typu pomocy potrzebujesz"
+          />
+          {isChrome && <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange} />}
+          <button type="submit" className="p-2 pborder-l-4 border-stone-800 bg-stone rounded-r-3xl bg-orange-200">
+            <i className="fa-solid fa-xl fa-arrow-right text-stone-800"></i>
+          </button>
+        </div>
       </div>
 
-      <input
-        type="text"
-        className="p-2 w-full focus:outline-none text-stone-800 placeholder-stone-500 bg-main bg-1"
-        placeholder="Tutaj możesz wpisać swoje pytanie"
-      />
-      {isChrome && <Microphone language={"pl"} onTranscriptChange={handleTranscriptChange} />}
-      <button type="submit" className="p-2 border-l-4 border-stone-800 bg-stone rounded-r-3xl bg-orange-200">
-        <i className="fa-solid fa-xl fa-arrow-right text-stone-800"></i>
-      </button>
+      <select
+        value={selectedVoivodeship}
+        onChange={(e) => setSelectedVoivodeship(e.target.value)}
+        className="p-2 w-1/2 mx-auto mt-2 focus:outline-none text-stone-800 bg-main bg-1 rounded-full py-2 px-4"
+      >
+        <option value="" disabled>
+          Wybierz województwo
+        </option>
+        {voivodeships.map((voivodeship, index) => (
+          <option key={index} value={voivodeship}>
+            {voivodeship}
+          </option>
+        ))}
+      </select>
     </form>
   );
 };

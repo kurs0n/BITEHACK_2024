@@ -17,7 +17,7 @@ const Container: React.FC = () => {
       <div className="flex mb-12">
         {/* Left Column (Title and InputBar) */}
         <div className="w-1/2 pr-4 flex flex-col justify-center items-center">
-          <h1 className="text-4xl text-center mb-12">Pomoc Wolontariusza</h1>
+          <h1 className="text-4xl text-center mb-12">Znajdź Wolontariusza</h1>
           <InputBar setIsLoading={setIsLoading} />
         </div>
 
