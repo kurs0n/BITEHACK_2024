@@ -9,6 +9,7 @@ const Container: React.FC = () => {
 
   return (
     <div className="h-full bg-trans p-20 w-3/4 backdrop-blur-lg">
+      git
       <div className="flex mb-12">
         <div className="w-1/2 pr-4 flex flex-col justify-center items-center">
           <h1 className="text-4xl text-center mb-12">Znajdź Wolontariusza</h1>
