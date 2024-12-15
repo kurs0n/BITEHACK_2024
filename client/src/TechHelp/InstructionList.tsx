@@ -11,7 +11,7 @@ interface InstructionListProps {
 
 const InstructionList: React.FC<InstructionListProps> = ({ instructions }) => {
   return (
-    <div className="h-96 overflow-y-auto p-4 rounded-xl w-full ">
+    <div className="h-[56vh] overflow-y-auto p-4 rounded-xl w-full ">
       {instructions.length === 0 ? (
         <div className="flex justify-center items-center h-full text-stone-400 text-lg">
           Tutaj pojawią się kroki, które musisz wykonać
