@@ -16,28 +16,12 @@ type server struct {
     volunteer.UnimplementedVolunteerServiceServer
 }
 
-func (s *server) GetVolunteer(ctx context.Context, req *volunteer.GetVolunteerRequest) (*volunteer.GetVolunteerResponse, error) {
-    vol, err := db.GetVolunteerById(ctx, int(req.GetId()))
-    if err != nil {
-        return nil, err
-    }
-
-    return &volunteer.GetVolunteerResponse{
-        Volunteer: &volunteer.Volunteer{
-            Id:              int32(vol.ID),
-            Name:            vol.Name,
-            Surname:         vol.Surname,
-            Email:           vol.Email,
-            TelephoneNumber: vol.TelephoneNumber,
-            Photo:           &vol.Photo,
-            Tags:            vol.Tags,
-            Voivodeship:     vol.Voivodeship,
-        },
-    }, nil
+func int32Ptr(i int32) *int32 {
+    return &i
 }
 
 func (s *server) ListVolunteers(ctx context.Context, req *volunteer.ListVolunteersRequest) (*volunteer.ListVolunteersResponse, error) {
-    volunteers, err := db.ListVolunteers(ctx)
+    volunteers, err := db.ListVolunteers(ctx, req.Tags, req.Voivodeship)
     if err != nil {
         return nil, err
     }
@@ -45,7 +29,7 @@ func (s *server) ListVolunteers(ctx context.Context, req *volunteer.ListVoluntee
     var volunteerList []*volunteer.Volunteer
     for _, vol := range volunteers {
         volunteerList = append(volunteerList, &volunteer.Volunteer{
-            Id:              int32(vol.ID),
+            Id:              int32Ptr(int32(vol.ID)),
             Name:            vol.Name,
             Surname:         vol.Surname,
             Email:           vol.Email,
@@ -78,7 +62,7 @@ func (s *server) CreateVolunteer(ctx context.Context, req *volunteer.CreateVolun
 
     return &volunteer.CreateVolunteerResponse{
         Volunteer: &volunteer.Volunteer{
-            Id:              int32(newVol.ID),
+            Id:              int32Ptr(int32(newVol.ID)),
             Name:            newVol.Name,
             Surname:         newVol.Surname,
             Email:           newVol.Email,

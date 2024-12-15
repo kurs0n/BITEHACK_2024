@@ -6,14 +6,15 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-chi/chi/v5"
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/option"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/option"
 )
 
 type VolunteerRequest struct {
@@ -160,6 +161,7 @@ Task: "%s"
 
 Tags: %s
 
+Associate tag "TECHNOLOGIA" as anything related to electronics, computers, internet, etc.
 Return only the tags that are relevant to the task, separated by commas. If no tags are relevant, return an empty string.`, recievedPrompt, tagsListText)
 
 	model := client.GenerativeModel("gemini-1.5-flash")

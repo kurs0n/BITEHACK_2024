@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"strings"
 )
 
 
@@ -41,9 +42,20 @@ func GetVolunteerById(ctx context.Context, id int) (*Volunteer, error) {
     return &vol, nil
 }
 
-func ListVolunteers(ctx context.Context) ([]Volunteer, error) {
-    query := "SELECT id, name, surname, email, telephone_number, photo, tags, voivodeship FROM volunteers"
-    rows, err := DB.QueryContext(ctx, query)
+func ListVolunteers(ctx context.Context, tags []string, voivodeship string) ([]Volunteer, error) {
+    query := "SELECT id, name, surname, email, telephone_number, photo, tags, voivodeship FROM volunteers WHERE voivodeship LIKE ?"
+    args := []interface{}{"%" + voivodeship + "%"}
+
+    if len(tags) > 0 {
+        tagConditions := make([]string, len(tags))
+        for i, tag := range tags {
+            tagConditions[i] = "JSON_CONTAINS(tags, ?)"
+            args = append(args, fmt.Sprintf(`"%s"`, tag))
+        }
+        query += " AND (" + strings.Join(tagConditions, " OR ") + ")"
+    }
+
+    rows, err := DB.QueryContext(ctx, query, args...)
     if err != nil {
         return nil, err
     }
