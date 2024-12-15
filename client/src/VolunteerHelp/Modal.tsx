@@ -6,10 +6,10 @@ interface ModalProps {
     name: string;
     surname: string;
     email: string;
-    phoneNumber: string;
-    category: string;
+    telephone_number: string;
+    tags: string[];
     voivodeship: string;
-    photoUrl: string;
+    photo: string;
   };
   onClose: () => void;
 }
@@ -28,14 +28,14 @@ const Modal: React.FC<ModalProps> = ({ volunteer, onClose }) => {
         </div>
         <div className="flex items-center space-x-6 mb-6">
           <img
-            src={volunteer.photoUrl}
+            src={volunteer.photo}
             alt={`${volunteer.name} ${volunteer.surname}`}
             className="w-32 h-32 rounded-full border-4 border-stone-800"
           />
           <div className="flex flex-col space-y-2">
             <p className="bg-trans p-2 rounded-md">
               <i className="fa-solid fa-hand-holding-heart mr-2 text-stone-800"></i>
-              <strong className="font-semibold">Category:</strong> {volunteer.category}
+              <strong className="font-semibold">Category:</strong> {volunteer.tags}
             </p>
             <p className="bg-trans p-2 rounded-md">
               <i className="fa-solid fa-envelope mr-2 text-stone-800"></i>
@@ -46,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({ volunteer, onClose }) => {
             </p>
             <p className="bg-trans p-2 rounded-md">
               <i className="fa-solid fa-phone-alt mr-2 text-stone-800"></i>
-              <strong className="font-semibold">Phone Number:</strong> {volunteer.phoneNumber}
+              <strong className="font-semibold">Phone Number:</strong> {volunteer.telephone_number}
             </p>
             <p className="bg-trans p-2 rounded-md">
               <i className="fa-solid fa-map-marker-alt mr-2 text-stone-800"></i>

@@ -183,6 +183,29 @@ VALUES
      'This icon represents your phonebook. Use it to find, add, or edit your contacts.',
      'ios_system');
 
+INSERT INTO volunteers (name, surname, email, telephone_number, photo, tags, voivodeship) VALUES
+('Karolina', 'Sadowska', 'karolina.sadowska@example.com', '500123456', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["SPRZATANIE", "OGROD"]', 'LUBUSKIE'),
+('Dominik', 'Kaczmarek', 'dominik.kaczmarek@example.com', '501234567', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["POSILKI", "ZAKUPY"]', 'MAZOWIECKIE'),
+('Natalia', 'Witkowska', 'natalia.witkowska@example.com', '502345678', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["LEKI", "OPIEKA", "ROZMOWA"]', 'SWIETOKRZYSKIE'),
+('Bartosz', 'Lis', 'bartosz.lis@example.com', '503456789', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["TRANSPORT", "NAPRAWA"]', 'WARMIANSKO_MAZURSKIE'),
+('Monika', 'Król', 'monika.krol@example.com', '504567890', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["TECHNOLOGIA", "PISANIE"]', 'PODLASKIE'),
+('Adam', 'Jaworski', 'adam.jaworski@example.com', '505678901', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["SPACER", "OGROD", "NAPRAWA"]', 'OPOLSKIE'),
+('Joanna', 'Gorska', 'joanna.gorska@example.com', '506789012', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["ROZMOWA", "LEKI"]', 'ZACHODNIOPOMORSKIE'),
+('Pawel', 'Czarnecki', 'pawel.czarnecki@example.com', '507890123', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["ZAKUPY", "SPRZATANIE"]', 'SLASKIE'),
+('Izabela', 'Wojciechowska', 'izabela.wojciechowska@example.com', '508901234', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["OPIEKA", "SPACER"]', 'WIELKOPOLSKIE'),
+('Krzysztof', 'Kowal', 'krzysztof.kowal@example.com', '509012345', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["NAPRAWA", "TECHNOLOGIA", "TRANSPORT"]', 'DOLNOSLASKIE'),
+('Sylwia', 'Michalska', 'sylwia.michalska@example.com', '510123456', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["POSILKI", "PISANIE"]', 'KUJAWSKO_POMORSKIE'),
+('Tadeusz', 'Olszewski', 'tadeusz.olszewski@example.com', '511234567', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["OGROD", "NAPRAWA"]', 'MALOPOLSKIE'),
+('Ewa', 'Piotrowska', 'ewa.piotrowska@example.com', '512345678', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["SPRZATANIE", "ROZMOWA", "OPIEKA"]', 'LUBELSKIE'),
+('Grzegorz', 'Zajac', 'grzegorz.zajac@example.com', '513456789', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["TECHNOLOGIA", "LEKI"]', 'POMORSKIE'),
+('Alicja', 'Stepien', 'alicja.stepien@example.com', '514567890', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["TRANSPORT", "ZAKUPY", "POSILKI"]', 'PODKARPACIE'),
+('Mateusz', 'Kurek', 'mateusz.kurek@example.com', '515678901', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["ROZMOWA", "SPACER"]', 'SWIETOKRZYSKIE'),
+('Zofia', 'Majewska', 'zofia.majewska@example.com', '516789012', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["SPRZATANIE", "OGROD", "POSILKI"]', 'WIELKOPOLSKIE'),
+('Mariusz', 'Jankowski', 'mariusz.jankowski@example.com', '517890123', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["NAPRAWA", "TRANSPORT"]', 'MAZOWIECKIE'),
+('Patrycja', 'Nowinska', 'patrycja.nowinska@example.com', '518901234', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["PISANIE", "TECHNOLOGIA"]', 'SLASKIE'),
+('Jakub', 'Kowalczyk', 'jakub.kowalczyk@example.com', '519012345', 'https://bitehack.s3.eu-north-1.amazonaws.com/image.jpeg', '["LEKI", "ZAKUPY"]', 'DOLNOSLASKIE');
+
+
 INSERT INTO volunteer_tags (tag) VALUES ('ZAKUPY');
 INSERT INTO volunteer_tags (tag) VALUES ('LEKI');
 INSERT INTO volunteer_tags (tag) VALUES ('SPRZATANIE');
