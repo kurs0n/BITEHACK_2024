@@ -14,7 +14,7 @@ const Container: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-trans p-20 border-8 border-stone-800 rounded-3xl w-2/3 backdrop-blur-lg">
+    <div className="bg-trans p-20 h-full w-3/4 backdrop-blur-lg">
       <h1
         className={`text-4xl text-center mx-auto overflow-hidden whitespace-nowrap mb-12 ${
           isTyping ? "animate-typing border-r-4 border-black" : ""
