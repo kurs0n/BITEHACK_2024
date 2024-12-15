@@ -49,7 +49,7 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
   };
 
   return (
-    <div className="group h-full relative">
+    <div className="group h-full relative hover:scale-x-95 transition-all duration-200">
       {/* Wrap the li in a div with full height */}
       <span className="text-sm text-stone-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         Kliknij by uzyskac wiecej informacji

@@ -81,7 +81,7 @@ const VolunteerList: React.FC = () => {
               key={index}
               s
               onClick={() => handleVolunteerClick(volunteer)}
-              className="cursor-pointer bg-1 p-4 rounded-lg flex items-center space-x-4 hover:scale-95  transition-all duration-150"
+              className="cursor-pointer bg-1 p-4 rounded-lg flex items-center space-x-4 hover:scale-95 transition-all duration-150"
             >
               <img
                 src={volunteer.photoUrl}
