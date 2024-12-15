@@ -1,13 +1,20 @@
 import React from "react";
+import Container from "../VolounterSignUp/Container";
+import background from "../../public/background.png";
 
 const Volunteer: React.FC = () => {
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center bg-stone-300">
-      <h1 className="text-4xl font-bold mb-6 text-stone-800">Jestem Wolontariuszem</h1>
-      <p className="text-lg text-stone-600">
-        Dziękujemy za Twoją chęć pomocy! Tutaj znajdziesz narzędzia i instrukcje, aby wspierać seniorów.
-      </p>
+    <div
+    className="h-screen w-full flex justify-center items-center bg-stone-300"
+    style={{
+      backgroundImage: `url(${background})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
+      <Container/>
     </div>
+  
   );
 };
 

@@ -22,7 +22,7 @@ const TitlePage: React.FC = () => {
           Seniorem szukającym wsparcia
         </Link>
         <Link
-          to="/volunteer"
+          to="/volunteer-signup"
           className="px-8 py-4 bg-lime-300 text-stone-800 rounded-xl shadow-lg hover:bg-lime-400 transition"
         >
           Wolontariuszem chcącym pomóc
