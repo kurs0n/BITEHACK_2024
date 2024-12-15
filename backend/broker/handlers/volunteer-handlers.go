@@ -1,13 +1,16 @@
 package handlers
 
 import (
+	"backend/db"
 	"backend/gen/volunteer"
 	"context"
 	"encoding/json"
-	"github.com/go-chi/chi/v5"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type VolunteerRequest struct {
@@ -58,6 +61,19 @@ func createVolunteer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusOK, "Volunteer created successfully")
+}
+
+func parseVolunteerTagsToText(volunteerTags []db.VolunteerTag) string {
+    var text string
+    text += "["
+    for i, volunteerTag := range volunteerTags {
+        text += fmt.Sprintf(`{ID: %d, Tag: "%s"}`, volunteerTag.ID, volunteerTag.Tag)
+        if i < len(volunteerTags)-1 {
+            text += ", "
+        }
+    }
+    text += "]"
+    return text
 }
 
 func listVolunteers(w http.ResponseWriter, r *http.Request) {
