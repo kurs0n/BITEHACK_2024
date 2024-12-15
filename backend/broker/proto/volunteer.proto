@@ -15,7 +15,7 @@ message GetVolunteerRequest {
 }
 
 message Volunteer {
-    int32 id = 1;
+    optional int32 id = 1;
     string name = 2;
     string surname = 3; 
     string email = 4;
@@ -30,6 +30,8 @@ message GetVolunteerResponse {
 }
 
 message ListVolunteersRequest {
+    repeated string tags = 1;
+    string voivodeship = 2;
 }
 
 message ListVolunteersResponse {
