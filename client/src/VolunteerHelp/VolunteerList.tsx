@@ -8,10 +8,10 @@ type Volunteer = {
   name: string;
   surname: string;
   email: string;
-  phoneNumber: string;
-  category: string;
+  telephone_number: string;
+  tags: string[];
   voivodeship: string;
-  photoUrl: string;
+  photo: string;
 };
 
 type VolunteerListProps = {
@@ -30,27 +30,34 @@ const VolunteerList: React.FC<VolunteerListProps> = ({ volunteers }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       {volunteers.length === 0 ? (
-        <p className="text-stone-400">Brak wyników</p>
+        <div className="flex justify-center items-center h-full text-stone-400 text-lg">
+          <p className="text-stone-400">Brak wyników</p>
+        </div>
       ) : (
-        <ul>
-          {volunteers.map((volunteer) => (
-            <li key={volunteer.id} className="mb-4 cursor-pointer" onClick={() => handleVolunteerClick(volunteer)}>
-              <Volunteer
-                name={volunteer.name}
-                surname={volunteer.surname}
-                email={volunteer.email}
-                phoneNumber={volunteer.phoneNumber}
-                category={volunteer.category}
-                voivodeship={volunteer.voivodeship}
-                photoUrl={volunteer.photoUrl}
-              />
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-y-auto max-h-full">
+          <ul>
+            {volunteers.map((volunteer) => (
+              <li
+                key={volunteer.id}
+                className="mb-4 cursor-pointer"
+                onClick={() => handleVolunteerClick(volunteer)}
+              >
+                <Volunteer
+                  name={volunteer.name}
+                  surname={volunteer.surname}
+                  email={volunteer.email}
+                  phone_number={volunteer.telephone_number}
+                  tags={volunteer.tags}
+                  voivodeship={volunteer.voivodeship}
+                  photo={volunteer.photo}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-
       {selectedVolunteer && <Modal volunteer={selectedVolunteer} onClose={closeModal} />}
     </div>
   );
