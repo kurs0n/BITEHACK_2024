@@ -17,10 +17,9 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
     if (detailedStep === null) {
       setIsLoading(true);
       try {
-        // Create the request body with the entire instruction list and the prompt
         const body = JSON.stringify({
-          "instruction-list": instructions, // Send all instructions
-          prompt: description, // The prompt stays the same (task description)
+          "instruction-list": instructions,
+          prompt: description,
         });
 
         console.log(body);
@@ -35,7 +34,10 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
 
         if (response.ok) {
           const data = await response.text();
-          setDetailedStep(data); // Set the detailed step
+
+          // Clean the fetched data by removing unwanted characters
+          const cleanedData = data.replace(/["\n]/g, "").trim(); // Remove quotes and newlines
+          setDetailedStep(cleanedData); // Set the cleaned detailed step
         }
       } catch (error) {
         console.error("Error fetching detailed step:", error);
@@ -49,13 +51,13 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
   };
 
   return (
-    <div className="group h-full relative hover:scale-x-95 transition-all duration-200">
+    <div className="group h-full relative ">
       {/* Wrap the li in a div with full height */}
       <span className="text-sm text-stone-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         Kliknij by uzyskac wiecej informacji
       </span>
 
-      <div className={`h-full bg-2 rounded-r-2xl relative`}>
+      <div className={`h-full bg-2 rounded-r-2xl relative `}>
         {/* Blur Overlay */}
         {isLoading && (
           <div className="absolute inset-0 backdrop-blur-sm rounded-r-2xl z-10 flex items-center justify-center text-xl">
@@ -63,7 +65,7 @@ const Task: React.FC<TaskProps> = ({ index, description, icon }) => {
           </div>
         )}
         <li
-          className={`flex flex-col items-start bg-1 p-2 px-6 border-stone-800 border-l-4 rounded-r-xl transition-all duration-500 ease-in-out ${
+          className={`flex flex-col items-start bg-1 p-2 px-6 border-l-4 rounded-r-xl ease-in-out border-stone-800 ${
             isExpanded ? "w-full" : "w-fit"
           }`}
           onClick={handleTaskClick}
