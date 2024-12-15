@@ -1,6 +1,7 @@
 // src/VolunteerHelp/InputBar.tsx
 import React, { useState } from "react";
 import Microphone from "./Microphone";
+import { Regions } from "../VolounterSignUp/FormData";
 
 type InputBarProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +13,8 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
   const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-  const voivodeships = ["MAZOWIECKIE"];
+  // Mapowanie enuma na tablicę wartości
+  const voivodeships = Object.values(Regions);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
 
       if (response.ok) {
         const data = await response.json();
-        setVolunteers(data); // Update the volunteers state with the fetched data
+        setVolunteers(data);
       } else {
         console.error("Failed to fetch volunteer data.");
       }
