@@ -19,6 +19,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   frontend:
     build:
       context: ./client
@@ -27,9 +28,10 @@ services:
       - "57072:3000"
     depends_on:
       - backend
+
   backend:
     build:
-      context: ./backend
+      context: ./backend/broker
       dockerfile: ./Dockerfile.backend
     ports:
       - "3000:3000"
@@ -43,6 +45,24 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+
+  microservice:
+    build:
+      context: ./backend/volunteer
+      dockerfile: Dockerfile.micro
+    ports:
+      - "50051:50051"
+    environment:
+      - DB_USER=external
+      - DB_PASSWORD=1234
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=icons
+    depends_on:
+      db: 
+        condition: service_healthy
+        
 
 volumes:
   db_data:
