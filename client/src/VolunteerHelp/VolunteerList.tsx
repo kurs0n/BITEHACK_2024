@@ -1,12 +1,17 @@
 // src/VolunteerHelp/VolunteerList.tsx
-import React from "react";
+import React, { useState } from "react";
+import Volunteer from "./Volunteer";
+import Modal from "./Modal";
 
 type Volunteer = {
   id: number;
   name: string;
-  city: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  category: string;
   voivodeship: string;
-  type: string;
+  photoUrl: string;
 };
 
 type VolunteerListProps = {
@@ -14,6 +19,16 @@ type VolunteerListProps = {
 };
 
 const VolunteerList: React.FC<VolunteerListProps> = ({ volunteers }) => {
+  const [selectedVolunteer, setSelectedVolunteer] = useState<Volunteer | null>(null);
+
+  const handleVolunteerClick = (volunteer: Volunteer) => {
+    setSelectedVolunteer(volunteer);
+  };
+
+  const closeModal = () => {
+    setSelectedVolunteer(null);
+  };
+
   return (
     <div className="w-full">
       {volunteers.length === 0 ? (
@@ -21,16 +36,22 @@ const VolunteerList: React.FC<VolunteerListProps> = ({ volunteers }) => {
       ) : (
         <ul>
           {volunteers.map((volunteer) => (
-            <li key={volunteer.id} className="bg-main p-4 rounded-lg mb-4 shadow-md">
-              <h3 className="text-xl font-semibold">{volunteer.name}</h3>
-              <p>
-                {volunteer.city}, {volunteer.voivodeship}
-              </p>
-              <p>{volunteer.type}</p>
+            <li key={volunteer.id} className="mb-4 cursor-pointer" onClick={() => handleVolunteerClick(volunteer)}>
+              <Volunteer
+                name={volunteer.name}
+                surname={volunteer.surname}
+                email={volunteer.email}
+                phoneNumber={volunteer.phoneNumber}
+                category={volunteer.category}
+                voivodeship={volunteer.voivodeship}
+                photoUrl={volunteer.photoUrl}
+              />
             </li>
           ))}
         </ul>
       )}
+
+      {selectedVolunteer && <Modal volunteer={selectedVolunteer} onClose={closeModal} />}
     </div>
   );
 };
