@@ -9,7 +9,7 @@ Nasza aplikacja wspiera seniorów w codziennych wyzwaniach, łącząc ich z wolo
 
 w folderze `backend/broker` dodaj plik `.env`:
 ```
-GEMINI_API_KEY=AIzaSyBrZLeKPAclHKyMx9Lx8hIt0aOx4Yh1R5E
+GEMINI_API_KEY=<your_gemini_api_key>
 DB_USER=root
 DB_PASSWORD=1234
 DB_HOST=localhost
