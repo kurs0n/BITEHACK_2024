@@ -13,7 +13,6 @@ const InputBar: React.FC<InputBarProps> = ({ setIsLoading, setVolunteers }) => {
   const [input, setInput] = useState("");
   const [selectedVoivodeship, setSelectedVoivodeship] = useState("");
   const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-  const [isOpen, setIsOpen] = useState(false); 
 
   // Mapowanie enuma na tablicę wartości
   const voivodeships = Object.values(Regions);
